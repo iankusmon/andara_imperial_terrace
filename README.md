@@ -125,8 +125,8 @@ these commands for PowerShell if you want.
 #### Clone this repo anywhere you want and move into the directory:
 
 ```sh
-git clone https://github.com/nickjj/docker-rails-example hellorails
-cd hellorails
+git clone https://github.com/iankusmon/andara_imperial_terrace.git
+cd andara_imperial_terrace
 
 # Optionally checkout a specific tag, such as: git checkout 0.9.0
 ```
