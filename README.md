@@ -39,7 +39,7 @@ Key Features:
   - Providing analytics for decision-making.
   - Facilitating secure communication between stakeholders.
 
-### Rent of Property (Villa)
+### Rent of Villa
 
 Discover the pinnacle of elegance and indulgence at Andara Imperial Terrace, your ultimate destination for experiencing luxurious European villa-style living. Nestled amidst breathtaking European-inspired panoramas, we provide a haven of sophistication where every moment is tailored to perfection.
 
@@ -102,25 +102,101 @@ GitHub Actions have been set up.
 
 ## Running this app
 
-You'll need to have [Docker installed](https://docs.docker.com/get-docker/).
-It's available on Windows, macOS and most distros of Linux. If you're new to
-Docker and want to learn it in detail check out the [additional resources
-links](#learn-more-about-docker-and-ruby-on-rails) near the bottom of this
-README.
+### Installing Ruby
 
-You'll also need to enable Docker Compose v2 support if you're using Docker
-Desktop. On native Linux without Docker Desktop you can [install it as a plugin
-to Docker](https://docs.docker.com/compose/install/linux/). It's been generally
-available for a while now and is stable. This project uses specific [Docker
-Compose v2
-features](https://nickjanetakis.com/blog/optional-depends-on-with-docker-compose-v2-20-2)
-that only work with Docker Compose v2 2.20.2+.
+First, we need to install Ruby's dependencies using Homebrew.
 
-If you're using Windows, it will be expected that you're following along inside
-of [WSL or WSL
-2](https://nickjanetakis.com/blog/a-linux-dev-environment-on-windows-with-wsl-2-docker-desktop-and-more).
-That's because we're going to be running shell commands. You can always modify
-these commands for PowerShell if you want.
+brew install openssl@3 libyaml gmp rust
+Next, we'll install Ruby using a version manager called Mise. This allows you to easily update Ruby and switch between versions anytime.
+
+```sh
+curl https://mise.run | sh
+echo 'eval "$(~/.local/bin/mise activate)"' >> ~/.zshrc
+source ~/.zshrc
+Then install Ruby with Mise:
+```
+
+```sh
+mise use --global ruby@3
+```
+
+Confirm that Ruby is installed and works:
+
+```sh
+ruby --version
+#=> 3.3.5
+```
+You also want to ensure you're using the latest version of Rubygems.
+
+```sh
+gem update --system
+```
+
+Optionally, if you plan to use Node.js for handling assets, you can use Mise to install Node as well.
+
+```sh
+mise use --global node@22.11.0
+node -v
+#=> 22.11.0
+```
+
+### Configuring Git
+
+We'll be using Git for our version control system so we're going to set it up to match our Github account. If you don't already have a Github account, make sure to register. It will come in handy for the future.
+
+Replace the example name and email address in the following steps with the ones you used for your Github account.
+
+```sh
+git config --global color.ui true
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR@EMAIL.com"
+ssh-keygen -t ed25519 -C "YOUR@EMAIL.com"
+```
+
+The next step is to take the newly generated SSH key and add it to your Github account. You want to copy and paste the output of the following command and paste it here.
+
+```sh
+cat ~/.ssh/id_ed25519.pub
+Once you've done this, you can check and see if it worked:
+
+ssh -T git@github.com
+You should get a message like this:
+```
+
+Hi excid3! You've successfully authenticated, but GitHub does not provide shell access.
+
+### Installing Rails
+
+Choose the version of Rails you want to install:
+
+```sh
+8.0.0 (Recommended)
+```
+
+Installing Rails is as simple as running the following command in your Terminal:
+
+```sh
+gem install rails -v 8.0.0
+```
+And now we can verify Rails is installed:
+
+```sh
+rails -v
+# Rails 8.0.0
+```
+
+### Setting Up A Database
+
+*PostgreSQL*
+
+You can install PostgreSQL server and client from Homebrew:
+
+```sh
+brew install postgresql
+brew services start postgresql
+```
+
+By default the postgresql user is your current macOS username with no password. For example, my macOS user is named chris so I can login to postgresql with that username.
 
 #### Clone this repo anywhere you want and move into the directory:
 
@@ -131,81 +207,14 @@ cd andara_imperial_terrace
 # Optionally checkout a specific tag, such as: git checkout 0.9.0
 ```
 
-#### Copy an example .env file because the real one is git ignored:
-
 ```sh
-cp .env.example .env
+rails server
+or
+rails s
 ```
 
-#### Build everything:
+You can now visit http://localhost:3000 to view your new website!
 
-*The first time you run this it's going to take 5-10 minutes depending on your
-internet connection speed and computer's hardware specs. That's because it's
-going to download a few Docker images and build the Ruby + Yarn dependencies.*
 
-```sh
-docker compose up --build
-```
-
-Now that everything is built and running we can treat it like any other Rails
-app.
-
-Did you receive a `depends_on` "Additional property required is not allowed"
-error? Please update to at least Docker Compose v2.20.2+ or Docker Desktop
-4.22.0+.
-
-Did you receive an error about a port being in use? Chances are it's because
-something on your machine is already running on port 8000. Check out the docs
-in the `.env` file for the `DOCKER_WEB_PORT` variable to fix this.
-
-Did you receive a permission denied error? Chances are you're running native
-Linux and your `uid:gid` aren't `1000:1000` (you can verify this by running
-`id`). Check out the docs in the `.env` file to customize the `UID` and `GID`
-variables to fix this.
-
-#### Setup the initial database:
-
-```sh
-# You can run this from a 2nd terminal.
-./run rails db:setup
-```
-
-*We'll go over that `./run` script in a bit!*
-
-#### Check it out in a browser:
-
-Visit <http://localhost:8000> in your favorite browser.
-
-#### Running the test suite:
-
-```sh
-# You can run this from the same terminal as before.
-./run test
-```
-
-You can also run `./run test -b` with does the same thing but builds your JS
-and CSS bundles. This could come in handy in fresh environments such as CI
-where your assets haven't changed and you haven't visited the page in a
-browser.
-
-#### Static code analysis with Rubocop:
-
-```sh
-# You can run this from the same terminal as before.
-./run rubocop
-```
-
-You can also run `./run rubocop --auto-correct` which will automatically
-correct any issues that are auto-correctable. Alternatively the shorthand `-a`
-flag does the same thing.
-
-#### Stopping everything:
-
-```sh
-# Stop the containers and remove a few Docker related resources associated to this project.
-docker compose down
-```
-
-You can start things up again with `docker compose up` and unlike the first
-time it should only take seconds.
+Now that you've got your machine setup, it's time to start building some Rails applications.
 
