@@ -209,5 +209,3 @@ docker compose down
 You can start things up again with `docker compose up` and unlike the first
 time it should only take seconds.
 
-
-
