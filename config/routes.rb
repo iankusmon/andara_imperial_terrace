@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # House Units
+  namespace :api do
+    resources :house_units, only: [:index, :create, :show, :update]
+  end
+  get 'api/house_units', action: :index, controller: 'api/house_units'
+  post 'api/house_units', action: :create, controller: 'api/house_units'
+  get 'api/house_units/:id', action: :show, controller: 'api/house_units'
+  put 'api/house_units/:id', action: :update, controller: 'api/house_units'
+
   # House Rent Units
   get 'api/house_rent_units' => "api/house_rent_units#index"
   get 'api/house_rent_units/:id', to: 'api/house_rent_units#show'

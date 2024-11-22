@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nup: MyString
+  payment_status: 1
+  approved_by: 1
+  installment_begins_at: 2024-11-22 19:05:13
+  installment_ends_at: 2024-11-22 19:05:13
+  drop_point_status: 1
+  booking_fee_status: 1
+  installments_paid: 1
+  installment_remaining: 1
+  drop_point_paid_date: 2024-11-22 19:05:13
+  booking_fee_paid_date: 2024-11-22 19:05:13
+  commision_rule_id: 1
+  description: MyString
+  catalog_type: 1
+  cluster_type: 1
+  availability_status: 1
+  street_address: MyString
+  price: 1.5
+  surface_area: 1
+  building_area: 1
+
+two:
+  nup: MyString
+  payment_status: 1
+  approved_by: 1
+  installment_begins_at: 2024-11-22 19:05:13
+  installment_ends_at: 2024-11-22 19:05:13
+  drop_point_status: 1
+  booking_fee_status: 1
+  installments_paid: 1
+  installment_remaining: 1
+  drop_point_paid_date: 2024-11-22 19:05:13
+  booking_fee_paid_date: 2024-11-22 19:05:13
+  commision_rule_id: 1
+  description: MyString
+  catalog_type: 1
+  cluster_type: 1
+  availability_status: 1
+  street_address: MyString
+  price: 1.5
+  surface_area: 1
+  building_area: 1
