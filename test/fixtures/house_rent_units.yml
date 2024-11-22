@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nup: MyString
+  payment_status: 1
+  drop_point_status: 1
+  drop_point_paid_date: 2024-11-21 13:01:37
+  description: MyString
+  catalog_type: 1
+  cluster_type: 1
+  avaibility_status: 1
+  street_address: MyString
+  price: 1.5
+  surface_area: 1
+  building_area: 1
+
+two:
+  nup: MyString
+  payment_status: 1
+  drop_point_status: 1
+  drop_point_paid_date: 2024-11-21 13:01:37
+  description: MyString
+  catalog_type: 1
+  cluster_type: 1
+  avaibility_status: 1
+  street_address: MyString
+  price: 1.5
+  surface_area: 1
+  building_area: 1
