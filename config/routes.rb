@@ -21,4 +21,23 @@ Rails.application.routes.draw do
   get 'api/tour_packages/:id', to: 'api/tour_packages#show'
   post 'api/tour_packages', to: 'api/tour_packages#create'
   put 'api/tour_packages/:id', to: 'api/tour_packages#update'
+
+   # Admins
+   namespace :api do
+    resources :admins, only: [:index, :create, :show, :update]
+  end
+  get 'api/admins/customers', action: :index, controller: 'api/admins/customers'
+  get 'api/admins/customers/:id', action: :show, controller: 'api/admins/customers'
+  post 'api/admins/customers', action: :create, controller: 'api/admins/customers'
+  put 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
+
+   # Customers
+   namespace :api do
+    resources :customers, only: [:index, :create, :show, :update]
+  end
+  get 'api/customers/:id', action: :index, controller: 'api/customers'  #to view the profile detail of agent affiliates we have in database
+  put 'api/customers/:id', action: :update, controller: 'api/customers' #to update the profile of agent affiliates we have in database
+  get 'api/customers/house_units/:id?action=buy', action: :show, controller: 'api/customers/house_units' #to track the progress of buying house units
+  get 'api/customers/house_units/:id?action=rent', action: :show, controller: 'api/customers/house_units' #to track the progress of rent house units
+  get 'api/customers/tour_packages/:id', action: :create, controller: 'api/customers/tour_packages' #to track the progress of tour packages
 end
