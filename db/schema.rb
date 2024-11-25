@@ -10,7 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_22_120513) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_25_120901) do
+  create_table "admins", force: :cascade do |t|
+    t.string "name"
+    t.string "username"
+    t.string "email"
+    t.string "mobile"
+    t.datetime "last_login_at"
+    t.integer "roles"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "username"
+    t.string "mobile"
+    t.string "referreral_code"
+    t.integer "visit_id"
+    t.integer "kpr_document_id"
+    t.integer "home_unit_id"
+    t.integer "action"
+    t.datetime "last_login_at"
+    t.integer "house_rent_id"
+    t.integer "tour_package_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "destinations", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -37,7 +65,19 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_22_120513) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "house_units", force: :cascade do |t|
+  create_table "tour_packages", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "payment_status"
+    t.integer "drop_point_status"
+    t.boolean "is_stay"
+    t.integer "tour_days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "destination_ids", default: "--- []\n"
+  end
+
+  create_table "villa_units", force: :cascade do |t|
     t.string "nup"
     t.integer "payment_status"
     t.integer "approved_by"
@@ -51,8 +91,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_22_120513) do
     t.datetime "booking_fee_paid_date"
     t.integer "commision_rule_id"
     t.string "description"
-    t.integer "catalog_type"
-    t.integer "cluster_type"
     t.integer "availability_status"
     t.string "street_address"
     t.float "price"
@@ -60,17 +98,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_22_120513) do
     t.integer "building_area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "tour_packages", force: :cascade do |t|
-    t.string "name"
-    t.integer "price"
-    t.integer "payment_status"
-    t.integer "drop_point_status"
-    t.boolean "is_stay"
-    t.integer "tour_days"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "destination_ids", default: "--- []\n"
+    t.string "floor_type"
+    t.integer "type"
   end
 end

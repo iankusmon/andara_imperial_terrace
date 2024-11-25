@@ -3,12 +3,12 @@ Rails.application.routes.draw do
 
   # House Units
   namespace :api do
-    resources :house_units, only: [:index, :create, :show, :update]
+    resources :villa_units, only: [:index, :create, :show, :update]
   end
-  get 'api/house_units', action: :index, controller: 'api/house_units'
-  post 'api/house_units', action: :create, controller: 'api/house_units'
-  get 'api/house_units/:id', action: :show, controller: 'api/house_units'
-  put 'api/house_units/:id', action: :update, controller: 'api/house_units'
+  get 'api/villa_units', action: :index, controller: 'api/villa_units'
+  post 'api/villa_units', action: :create, controller: 'api/villa_units'
+  get 'api/villa_units/:id', action: :show, controller: 'api/villa_units'
+  put 'api/villa_units/:id', action: :update, controller: 'api/villa_units'
 
   # House Rent Units
   get 'api/house_rent_units' => "api/house_rent_units#index"
