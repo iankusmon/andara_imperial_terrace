@@ -21,4 +21,26 @@ Rails.application.routes.draw do
   get 'api/tour_packages/:id', to: 'api/tour_packages#show'
   post 'api/tour_packages', to: 'api/tour_packages#create'
   put 'api/tour_packages/:id', to: 'api/tour_packages#update'
+
+  # KPR Feature
+
+  ## Admins
+
+  get 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#index"
+  # get 'api/admins/customers/kpr_documents/:id' => "api/admins/customers/kpr_documents/:id#show"
+  post 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#create"
+  # put 'api/admins/customers/kpr_documents/:id' => "api/admins/customers/kpr_documents/:id#update"
+
+  ## Customers
+
+  get 'api/customers/kpr_documents' => "api/customers/kpr_documents#index"
+  # get 'api/customers/kpr_documents/:id' => "api/customers/kpr_documents/:id#show"
+  post 'api/customers/kpr_documents' => "api/customers/kpr_documents#create"
+  # put 'api/customers/kpr_documents/:id' => "api/customers/kpr_documents/:id#update"
+
+  ### KPR Calculator
+
+  post 'api/customers/kpr_calculators' => "api/customers/kpr_calculators#execute"
+  
+
 end
