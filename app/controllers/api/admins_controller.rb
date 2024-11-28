@@ -1,78 +1,80 @@
 module Api
-    class AdminsController < ApplicationController
-  
-      # GET /api/admins
-      def index
-        admins = Admins.all
-        render json: { data: admins }, status: :ok
-      end
-  
-      # POST /api/admins
-      def create
-        admins_params = create_request
-        is_admin_already_exist = false
-  
-        # Validate here
-        unless Admins.find_by(nup: admin_params[:nup]).nil?
-          is_admin_already_exist = true
+  class AdminsController < ApplicationController
+        # GET /api/admins
+        def index
+          admins = Admin.all 
+          render json: { data: admins }, status: :ok
         end
-  
-        if is_admin_already_exist == true
-          render json: { error: "House Unit already exist" }, status: :bad_request
-        else
-          admin = Admin.create!(admin_params)
-          render json: admin, root: :admin, status: :ok
+    
+        # POST /api/admins
+        def create
+          admin_params = create_request
+    
+          # Validasi jika admin sudah ada
+          if Admin.find_by(id: admin_params[:id])
+            render json: { error: "This Admin already exists" }, status: :bad_request
+          else
+            admin = Admin.create!(admin_params)
+            render json: { data: admin }, status: :created
+          end
         end
-      end
-  
-      # GET /api/admins/:id
-      def show
-        admin = Admin.find_by(id: params[:id])
-  
-        if admin.nil?
-          render json: { error: "House Unit not found" }, status: :not_found
-        else
-          render json: admin
+    
+        # GET /api/admins/:id
+        def show
+          admin = Admin.find_by(id: params[:id])
+    
+          if admin
+            render json: { data: admin }, status: :ok
+          else
+            render json: { error: "Admin not found" }, status: :not_found
+          end
         end
-  
-      end
-  
-      # PUT /api/admins/:id
-      def update
-        admin = Admin.find_by(id: params[:id])
-  
-        if admin.nil?
-          render json: { error: "House Unit not found" }, status: :not_found
-        else
-          admin.update(update_request)
-          render json: admin, status: :ok
+    
+        # PUT /api/admins/:id
+        def update
+          admin = Admin.find_by(id: params[:id])
+    
+          if admin
+            if admin.update(update_request)
+              render json: { data: admin }, status: :ok
+            else
+              render json: { error: admin.errors.full_messages }, status: :unprocessable_entity
+            end
+          else
+            render json: { error: "Admin not found" }, status: :not_found
+          end
         end
-      end
-  
-      private
-  
-      def create_request
-        params.require(:admin).permit(
-          :name,
-          :email,
-          :created_at,
-          :upadate_at,
-          :last_login_at,
-          :roles
-        )
-      end
-  
-      def update_request
-        params.require(:admin).permit(
-          :name,
-          :email,
-          :created_at,
-          :upadate_at,
-          :last_login_at,
-          :roles
-        )
-      end
-  
-    end
+    
+        private
+    
+        def create_request
+          params.require(:admin).permit(
+            :name,
+            :username,
+            :email,
+            :mobile,
+            :last_login_at,
+            :roles,
+            :password,
+            :password_digest,
+            :photo_profil_url
+          )
+        end
+    
+        def update_request
+          params.require(:admin).permit(
+            :name,
+            :username,
+            :email,
+            :mobile,
+            :last_login_at,
+            :roles,
+            :password,
+            :password_digest,
+            :photo_profil_url
+          )
+        end
   end
+end
+
   
