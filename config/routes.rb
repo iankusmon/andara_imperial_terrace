@@ -30,6 +30,16 @@ Rails.application.routes.draw do
   put 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
 
   namespace :api do
+    namespace :admins do
+      # Endpoint untuk login
+      post 'login', to: 'sessions#login'
+
+      # Endpoint untuk sign up admin baru
+      post 'sign_up', to: 'sign_ups#email'
+    end
+  end
+
+  namespace :api do
     resources :admins, only: [:index, :create, :show, :update]
   end
 
