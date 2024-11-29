@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_27_174937) do
+ActiveRecord::Schema[8.0].define(version: 2024_11_29_073006) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -63,6 +63,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_27_174937) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
+    t.string "password_confirmation"
+    t.datetime "birthday"
+    t.integer "gender"
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -91,6 +94,31 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_27_174937) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "house_units", force: :cascade do |t|
+    t.string "nup"
+    t.integer "payment_status"
+    t.integer "approved_by"
+    t.datetime "installment_begins_at"
+    t.datetime "installment_ends_at"
+    t.integer "drop_point_status"
+    t.integer "booking_fee_status"
+    t.integer "installments_paid"
+    t.integer "installment_remaining"
+    t.datetime "drop_point_paid_date"
+    t.datetime "booking_fee_paid_date"
+    t.integer "commision_rule_id"
+    t.string "description"
+    t.integer "catalog_type"
+    t.integer "cluster_type"
+    t.integer "availability_status"
+    t.string "street_address"
+    t.float "price"
+    t.integer "surface_area"
+    t.integer "building_area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "share_social_media", force: :cascade do |t|
     t.integer "name"
     t.boolean "is_callback"
@@ -109,31 +137,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_27_174937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "destination_ids", default: "--- []\n"
-  end
-
-  create_table "villa_units", force: :cascade do |t|
-    t.string "nup"
-    t.integer "payment_status"
-    t.integer "approved_by"
-    t.datetime "installment_begins_at"
-    t.datetime "installment_ends_at"
-    t.integer "drop_point_status"
-    t.integer "booking_fee_status"
-    t.integer "installments_paid"
-    t.integer "installment_remaining"
-    t.datetime "drop_point_paid_date"
-    t.datetime "booking_fee_paid_date"
-    t.integer "commision_rule_id"
-    t.string "description"
-    t.integer "availability_status"
-    t.string "street_address"
-    t.float "price"
-    t.integer "surface_area"
-    t.integer "building_area"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "floor_type"
-    t.integer "type"
   end
 
   create_table "visit_records", force: :cascade do |t|
