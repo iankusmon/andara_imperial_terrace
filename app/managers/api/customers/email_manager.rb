@@ -2,12 +2,24 @@ module Api
   module Customers
     module Signups
       # Creates a Customer
-      # Sends confirmation mailer
+      # Sends confirmation mailer for Signing Up
       class EmailManager
 
         def self.execute(params = {})
           validator = EmailValidator.new(params)
-          # raise SignupError.new(messages: validator.errors.messages) unless validator.valid?
+        
+          if validator.invalid?
+            raise ::Api::Customers::UnprocessableEntityError.new(
+              title:          'Unable to Sign Up',
+              messages:       validator.errors.messages,
+              debug_values: {
+                name:         params[:name],
+                email:        params[:email],
+                birthday:     params[:birthday],
+                gender:       params[:gender],
+              }
+            )
+          end
 
           # Create customer with identity
           # Leaves out provider_id since we need the customer's id first
