@@ -1,4 +1,10 @@
 class Customer < ApplicationRecord
+    # Enumerations
+    enum :gender, {
+      male: 0,
+      female: 1
+    }
+
     # Associations
     has_many :villa_units
     has_many :villa_rent_units
