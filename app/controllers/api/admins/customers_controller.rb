@@ -1,7 +1,7 @@
 module Api
   module Admins
     class CustomersController < ApplicationController
-
+      
       # GET /customers
       def index
           customers = Customer.all
