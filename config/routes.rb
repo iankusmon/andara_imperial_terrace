@@ -33,7 +33,7 @@ Rails.application.routes.draw do
     namespace :admins do
       post 'sign_up', to: 'sign_ups#create'
       post 'login', to: 'sessions#login'
-      delete 'logout', to: 'sessions#logout'
+      delete 'logout', to: '/api/admins#logout'
     end
   end
 
