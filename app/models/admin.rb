@@ -1,8 +1,15 @@
 class Admin < ApplicationRecord
-
     has_secure_password
 
-    validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+    # Generate a new auth token
+    def generate_auth_token
+        update(auth_token: SecureRandom.hex(20))
+    end
+
+    # Check if admin has a specific role
+    def super_admin?
+        roles.include?('super_admin')
+    end
 
     enum :roles, {
         property: 0, 

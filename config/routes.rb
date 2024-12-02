@@ -31,11 +31,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :admins do
-      # Endpoint untuk login
+      post 'sign_up', to: 'sign_ups#create'
       post 'login', to: 'sessions#login'
-
-      # Endpoint untuk sign up admin baru
-      post 'sign_up', to: 'sign_ups#email'
+      delete 'logout', to: '/api/admins#logout'
     end
   end
 
