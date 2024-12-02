@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
 
   attr_reader :current_admin
 
-  private
+  # private
 
   def authentication_admin
     token = request.headers['Authorization']&.split(' ')&.last
