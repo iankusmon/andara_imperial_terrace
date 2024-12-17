@@ -12,8 +12,7 @@ module Api
         # end
 
         admin = Admin.find_by(
-          email: params[:email],
-          password: params[:password]
+          email: params[:email]
         )
 
         reset_session

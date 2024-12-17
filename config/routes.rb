@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get 'api/admins/customers/:id', action: :show, controller: 'api/admins/customers'
   post 'api/admins/customers', action: :create, controller: 'api/admins/customers'
   put 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
+  get 'api/admins/profile', action: :profile, controller: 'api/admins'
 
   namespace :api do
     namespace :admins do

@@ -1,12 +1,23 @@
 module Api
   class AdminsController < ::Api::BaseController
-    skip_before_action :verify_authenticity_token
-    before_action :authenticate_admin
+    # skip_before_action :verify_authenticity_token
+    # before_action :authenticate_admin
+
+    # include Metadata
 
     # GET /api/admins
     def index
       admins = Admin.all 
-      render json: { data: admins }, status: :ok
+      render(
+        json: admins,
+        root: :admins,
+        # meta: paagination_dict(admins),
+        each_serializer: ::AdminSerializer
+      )
+    end
+
+    def profile
+      render json: current_admin, status: :ok
     end
 
     # POST /api/admins
