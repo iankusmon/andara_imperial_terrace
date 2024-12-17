@@ -9,6 +9,7 @@ gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
+gem "byebug"
 # Middleware to allow Cross Origin Resource Sharing
 gem 'rack-cors'
 

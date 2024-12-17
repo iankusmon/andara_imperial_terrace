@@ -1,6 +1,7 @@
 module Api
   module Admins
-    class CustomersController < ApplicationController
+    class CustomersController < ::Api::BaseController
+      before_action :authenticate_admin
       
       # GET /customers
       def index
