@@ -19,8 +19,12 @@ class AdminSerializer < ActiveModel::Serializer
 
   attributes :id,
              :name,
+             :username,
              :email,
+             :mobile,
              :roles,
+             :photo_profil_url,
+             :active_status,
              :created_at
 
 end

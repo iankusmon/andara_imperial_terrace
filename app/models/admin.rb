@@ -19,4 +19,9 @@ class Admin < ApplicationRecord
         kpr: 4, 
         super_admin: 5
     }
+
+    enum :active_status, {
+        disabled: 0,
+        enabled: 1
+    }
 end

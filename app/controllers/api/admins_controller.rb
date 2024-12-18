@@ -23,10 +23,17 @@ module Api
     # POST /api/admins
     def create
       admin_params = create_request
-
       # Validasi jika admin sudah ada
-      if Admin.find_by(id: admin_params[:id])
-        render json: { error: "This Admin already exists" }, status: :bad_request
+      if Admin.find_by(email: admin_params[:email])
+        render json: { error: "Email Admin Sudah Terdaftar" }, status: :unprocessable_entity
+      elsif Admin.find_by(username: admin_params[:username])
+        render json: { error: "Username Admin Sudah Terdaftar" }, status: :unprocessable_entity
+      elsif Admin.find_by(name: admin_params[:name])
+        render json: { error: "Nama Admin Sudah Terdaftar" }, status: :unprocessable_entity
+      elsif Admin.find_by(mobile: "0#{admin_params[:mobile]}")
+        render json: { error: "Nomor Handphone Sudah Terdaftar" }, status: :unprocessable_entity
+      elsif current_admin&.roles == "super_admin"
+        render json: { error: "Hanya Super Admin Dapat Membuat Akun Admin" }, status: :unprocessable_entity
       else
         admin = Admin.create!(admin_params)
         render json: { data: admin }, status: :created
@@ -79,11 +86,11 @@ module Api
         :username,
         :email,
         :mobile,
-        :last_login_at,
         :roles,
         :password,
-        :password_digest,
-        :photo_profil_url
+        :password_confirmation,
+        :photo_profil_url,
+        :active_status
       )
     end
 
@@ -93,11 +100,11 @@ module Api
         :username,
         :email,
         :mobile,
-        :last_login_at,
         :roles,
         :password,
-        :password_digest,
-        :photo_profil_url
+        :password_confirmation,
+        :photo_profil_url,
+        :active_status
       )
     end
   end
