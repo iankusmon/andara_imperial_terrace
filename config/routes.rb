@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :admins do
+      patch 'update_password', to: '/api/admins#update_password'
       post 'sign_up', to: 'sign_ups#create'
       post 'login', to: 'sessions#login'
       delete 'logout', to: '/api/admins#logout'
@@ -42,7 +43,7 @@ Rails.application.routes.draw do
     resources :admins, only: [:index, :create, :show, :update]
   end
 
-  # Customers
+  # Customersa
   namespace :api do
     resources :customers, only: [:index, :create, :show, :update]
   end

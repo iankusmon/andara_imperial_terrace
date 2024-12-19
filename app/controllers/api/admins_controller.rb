@@ -7,7 +7,19 @@ module Api
 
     # GET /api/admins
     def index
-      admins = Admin.all 
+      filter_params = index_request
+      admins = Admin.all
+      admins = admins.where('name LIKE ?', "%#{filter_params[:name]}%") if filter_params[:name].present?
+      admins = admins.where('username LIKE ?', "%#{filter_params[:username]}%") if filter_params[:username].present?
+      admins = admins.where('email LIKE ?', "%#{filter_params[:email]}%") if filter_params[:email].present?
+      # admins = admins.where(name: filter_params[:name]) if filter_params[:name].present?
+      # admins = admins.where(username: filter_params[:username]) if filter_params[:username].present?
+      # admins = admins.where(email: filter_params[:email]) if filter_params[:email].present?
+      admins = admins.where(mobile: filter_params[:mobile]) if filter_params[:mobile].present?
+      admins = admins.where(roles: filter_params[:roles]) if filter_params[:roles].present?
+      admins = admins.where(created_at: filter_params[:created_at]) if filter_params[:created_at].present?
+      admins = admins.where(active_status: filter_params[:active_status]) if filter_params[:active_status].present?
+      
       render(
         json: admins,
         root: :admins,
@@ -51,6 +63,16 @@ module Api
       end
     end
 
+    #Update Password
+    def update_password
+      update_password_params = update_password_request
+      admin = Admin.find_by_id(3)
+      admin.update(
+        password: update_password_params[:new_password],
+        password_confirmation: update_password_params[:password_confirmation]
+      )
+    end
+
     # PUT /api/admins/:id
     def update
       admin = Admin.find_by(id: params[:id])
@@ -65,6 +87,8 @@ module Api
         render json: { error: "Admin not found" }, status: :not_found
       end
     end
+
+    
 
     def logout
       # authentication_admin
@@ -105,6 +129,26 @@ module Api
         :password_confirmation,
         :photo_profil_url,
         :active_status
+      )
+    end
+
+    def index_request
+      params.permit(
+        :name,
+        :username,
+        :email,
+        :mobile,
+        :roles,
+        :created_at,
+        :active_status
+      )
+    end
+
+    def update_password_request
+      params.require(:admin).permit(
+        :current_password,
+        :new_password,
+        :password_confirmation
       )
     end
   end
