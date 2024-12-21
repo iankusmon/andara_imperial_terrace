@@ -1,12 +1,25 @@
 module Api
   module Admins
     class CustomersController < ::Api::BaseController
-      before_action :authenticate_admin
+      # before_action :authenticate_admin
       
       # GET /customers
       def index
+          filter_params = index_request
           customers = Customer.all
-          render json: customers, status: :ok
+          customers = customers.where('name LIKE ?', "%#{filter_params[:name]}%") if filter_params[:name].present?
+          customers = customers.where('username LIKE ?', "%#{filter_params[:username]}%") if filter_params[:username].present?
+          customers = customers.where('email LIKE ?', "%#{filter_params[:email]}%") if filter_params[:email].present?
+          customers = customers.where('nik LIKE ?', "%#{filter_params[:nik]}%") if filter_params[:nik].present?
+          customers = customers.where("mobile LIKE ?", "%#{filter_params[:mobile]}%") if filter_params[:mobile].present?
+          customers = customers.where(roles: filter_params[:roles]) if filter_params[:roles].present?
+          customers = customers.where(is_deleted: filter_params[:is_deleted]) if filter_params[:is_deleted].present?
+          
+          render(
+            json: customers,
+            root: :customers,
+            each_serializer: CustomerSerializer
+          )
       end
       
       # GET /customers/:id
@@ -23,12 +36,20 @@ module Api
       # POST /customers
       def create
           customer_params = create_request
-
+          #Validasi jika customer sudah ada
           if Customer.find_by(email: customer_params[:email])
-          render json: { error: "This Customer already exists" }, status: :bad_request
+            render json: { error: "Email Customer Sudah Terdaftar" }, status: :unprocessable_entity
+          elsif Customer.find_by(username: customer_params[:username])
+            render json: { error: "Username Customer Sudah Terdaftar" }, status: :unprocessable_entity
+          elsif Customer.find_by(name: customer_params[:name])
+            render json: { error: "Nama Customer Sudah Terdaftar" }, status: :unprocessable_entity
+          elsif Customer.find_by(mobile: "0#{customer_params[:mobile]}")
+            render json: { error: "Nomor Handphone Sudah Terdaftar" }, status: :unprocessable_entity
+          elsif Customer.find_by(nik: customer_params[:nik])
+            render json: { error: "NIK Sudah Terdaftar" }, status: :unprocessable_entity
           else
-          customer = Customer.create!(customer_params)
-          render json: customer, status: :ok
+            customer = Customer.create!(customer_params)
+            render json: customer, status: :ok
           end
       end
       
@@ -70,7 +91,10 @@ module Api
               :password, 
               :password_digest, 
               :photo_profile_url, 
-              :customer_address_id
+              :customer_address_id,
+              :nik,
+              :roles,
+              :is_deleted
           )
       end
 
@@ -96,7 +120,22 @@ module Api
               :password, 
               :password_digest, 
               :photo_profile_url, 
-              :customer_address_id
+              :customer_address_id,
+              :nik,
+              :roles,
+              :is_deleted
+          )
+      end
+
+      def index_request
+        params.permit(
+              :name, 
+              :username, 
+              :email, 
+              :mobile, 
+              :nik,
+              :roles,
+              :is_deleted
           )
       end
             

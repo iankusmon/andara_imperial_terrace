@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   put 'api/villa_rent_units/:id', to: 'api/villa_rent_units#update'
 
   # Tour Packages Units
-  get 'api/packages' => "api/packages#index"
+  get 'api/packages' => "api/packages#index"      
   get 'api/packages/:id', to: 'api/packages#show'
   post 'api/packages', to: 'api/packages#create'
   put 'api/packages/:id', to: 'api/packages#update'
@@ -27,11 +27,12 @@ Rails.application.routes.draw do
   get 'api/admins/customers', action: :index, controller: 'api/admins/customers'
   get 'api/admins/customers/:id', action: :show, controller: 'api/admins/customers'
   post 'api/admins/customers', action: :create, controller: 'api/admins/customers'
-  put 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
+  patch 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
   get 'api/admins/profile', action: :profile, controller: 'api/admins'
 
   namespace :api do
     namespace :admins do
+      patch 'update_password', to: '/api/admins#update_password'
       post 'sign_up', to: 'sign_ups#create'
       post 'login', to: 'sessions#login'
       delete 'logout', to: '/api/admins#logout'
