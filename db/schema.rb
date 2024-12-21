@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_18_081629) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -65,6 +65,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_18_081629) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
+    t.integer "nik"
+    t.integer "roles"
+    t.boolean "is_deleted", default: false
   end
 
   create_table "destinations", force: :cascade do |t|

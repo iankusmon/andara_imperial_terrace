@@ -15,7 +15,7 @@ module Api
       # admins = admins.where(name: filter_params[:name]) if filter_params[:name].present?
       # admins = admins.where(username: filter_params[:username]) if filter_params[:username].present?
       # admins = admins.where(email: filter_params[:email]) if filter_params[:email].present?
-      admins = admins.where(mobile: filter_params[:mobile]) if filter_params[:mobile].present?
+      admins = admins.where("mobile LIKE ?", "%#{filter_params[:mobile]}%") if filter_params[:mobile].present?
       admins = admins.where(roles: filter_params[:roles]) if filter_params[:roles].present?
       admins = admins.where(created_at: filter_params[:created_at]) if filter_params[:created_at].present?
       admins = admins.where(active_status: filter_params[:active_status]) if filter_params[:active_status].present?

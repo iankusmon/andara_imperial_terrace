@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   put 'api/villa_rent_units/:id', to: 'api/villa_rent_units#update'
 
   # Tour Packages Units
-  get 'api/packages' => "api/packages#index"
+  get 'api/packages' => "api/packages#index"      
   get 'api/packages/:id', to: 'api/packages#show'
   post 'api/packages', to: 'api/packages#create'
   put 'api/packages/:id', to: 'api/packages#update'
@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get 'api/admins/customers', action: :index, controller: 'api/admins/customers'
   get 'api/admins/customers/:id', action: :show, controller: 'api/admins/customers'
   post 'api/admins/customers', action: :create, controller: 'api/admins/customers'
-  put 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
+  patch 'api/admins/customers/:id', action: :update, controller: 'api/admins/customers'
   get 'api/admins/profile', action: :profile, controller: 'api/admins'
 
   namespace :api do
@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     resources :admins, only: [:index, :create, :show, :update]
   end
 
-  # Customersa
+  # Customers
   namespace :api do
     resources :customers, only: [:index, :create, :show, :update]
   end
