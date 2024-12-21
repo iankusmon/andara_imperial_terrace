@@ -64,7 +64,8 @@ module Api
             :package,
             :villa_desired,
             :payment_method,
-            :address
+            :address,
+            :status
           )
       end
 
@@ -79,7 +80,8 @@ module Api
             :package,
             :villa_desired,
             :payment_method,
-            :address
+            :address,
+            :status
           )
       end
             
