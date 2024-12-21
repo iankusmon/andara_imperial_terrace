@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_25_120901) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -18,6 +18,27 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_25_120901) do
     t.string "mobile"
     t.datetime "last_login_at"
     t.integer "roles"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "password"
+    t.string "password_digest"
+    t.string "photo_profil_url"
+    t.string "password_confirmation"
+    t.integer "active_status", default: 1
+  end
+
+  create_table "customer_addresses", force: :cascade do |t|
+    t.string "label"
+    t.string "receiver_name"
+    t.string "receiver_mobile"
+    t.string "provinsi"
+    t.string "kota"
+    t.string "kecamatan"
+    t.text "street_address"
+    t.integer "kode_pos"
+    t.string "address_note"
+    t.decimal "latitude", precision: 10, scale: 6
+    t.decimal "longitude", precision: 10, scale: 6
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,13 +51,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_25_120901) do
     t.string "referreral_code"
     t.integer "visit_id"
     t.integer "kpr_document_id"
-    t.integer "home_unit_id"
-    t.integer "action"
+    t.integer "villa_unit_id"
     t.datetime "last_login_at"
-    t.integer "house_rent_id"
-    t.integer "tour_package_id"
+    t.integer "villa_rent_id"
+    t.integer "package_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_buyer"
+    t.boolean "is_renter"
+    t.boolean "is_package"
+    t.boolean "is_package_buyer"
+    t.string "password"
+    t.string "password_digest"
+    t.string "photo_profile_url"
+    t.integer "customer_address_id"
+    t.integer "nik"
+    t.integer "roles"
+    t.boolean "is_deleted", default: false
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -98,7 +129,35 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_25_120901) do
     t.integer "building_area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "floor_type"
-    t.integer "type"
+  end
+
+  create_table "share_social_media", force: :cascade do |t|
+    t.integer "name"
+    t.boolean "is_callback"
+    t.string "callback_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tour_packages", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "payment_status"
+    t.integer "drop_point_status"
+    t.boolean "is_stay"
+    t.integer "tour_days"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "destination_ids", default: "--- []\n"
+  end
+
+  create_table "visit_records", force: :cascade do |t|
+    t.integer "page"
+    t.datetime "time_starts"
+    t.datetime "time_ends"
+    t.boolean "is_share"
+    t.integer "share_social_media_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 end
