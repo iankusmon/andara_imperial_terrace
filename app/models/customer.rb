@@ -1,4 +1,10 @@
 class Customer < ApplicationRecord
+    # Enumerations
+    enum :gender, {
+      male: 0,
+      female: 1
+    }
+
     #Enum
     enum :roles, { 
         customer: 0, 

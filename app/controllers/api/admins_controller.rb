@@ -88,8 +88,6 @@ module Api
       end
     end
 
-    
-
     def logout
       # authentication_admin
       # if current_admin

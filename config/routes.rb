@@ -73,6 +73,13 @@ Rails.application.routes.draw do
   get 'api/customers/villa_units/:id?action=rent', action: :show, controller: 'api/customers/villa_units' #to track the progress of rent villa units
   get 'api/customers/packages/:id', action: :create, controller: 'api/customers/packages' #to track the progress of tour packages
 
+  # /customers/signups
+  namespace :signups do
+    post :email
+    post :google
+    post :facebook
+  end
+
   # Customer Address
   namespace :api do
     resources :customer_addresses, only: [:index, :create, :show, :update]
