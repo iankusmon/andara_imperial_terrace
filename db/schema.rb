@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_21_052755) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -99,27 +99,17 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "house_units", force: :cascade do |t|
-    t.string "nup"
-    t.integer "payment_status"
-    t.integer "approved_by"
-    t.datetime "installment_begins_at"
-    t.datetime "installment_ends_at"
-    t.integer "drop_point_status"
-    t.integer "booking_fee_status"
-    t.integer "installments_paid"
-    t.integer "installment_remaining"
-    t.datetime "drop_point_paid_date"
-    t.datetime "booking_fee_paid_date"
-    t.integer "commision_rule_id"
-    t.string "description"
-    t.integer "catalog_type"
-    t.integer "cluster_type"
-    t.integer "availability_status"
-    t.string "street_address"
-    t.float "price"
-    t.integer "surface_area"
-    t.integer "building_area"
+  create_table "nups", force: :cascade do |t|
+    t.integer "nup_number"
+    t.integer "order_number"
+    t.string "fullname"
+    t.integer "nik"
+    t.integer "occupation"
+    t.string "scan_ktp_url"
+    t.integer "package"
+    t.integer "villa_desired"
+    t.integer "payment_method"
+    t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -24,6 +24,15 @@ Rails.application.routes.draw do
 
   ## Admins
 
+  # NUP Features
+
+  get "api/admins/nups" => "api/admins/nups#index"
+  get "api/admins/nups/:id" => "api/admins/nups#show"
+  post "api/admins/nups" => "api/admins/nups#create"
+  patch "api/admins/nups/:id" => "api/admins/nups#update"
+
+  # KPR Features
+
   get 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#index"
   # get 'api/admins/customers/kpr_documents/:id' => "api/admins/customers/kpr_documents/:id#show"
   post 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#create"
@@ -31,19 +40,20 @@ Rails.application.routes.draw do
 
   ## Customers
 
+  # NUP Features
+
+  post 'api/customers/nups' => "api/customers/nups#create"
+
+  # KPR Feature
+
   get 'api/customers/kpr_documents' => "api/customers/kpr_documents#index"
   # get 'api/customers/kpr_documents/:id' => "api/customers/kpr_documents/:id#show"
   post 'api/customers/kpr_documents' => "api/customers/kpr_documents#create"
   # put 'api/customers/kpr_documents/:id' => "api/customers/kpr_documents/:id#update"
 
-  # KPR Feature
-
   ## KPR Calculator
   post 'api/customers/kpr_calculators' => "api/customers/kpr_calculators#execute"
-  
-
-  # Admins
-  
+    
   get 'api/admins/customers', action: :index, controller: 'api/admins/customers'
   get 'api/admins/customers/:id', action: :show, controller: 'api/admins/customers'
   post 'api/admins/customers', action: :create, controller: 'api/admins/customers'
