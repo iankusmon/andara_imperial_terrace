@@ -21,5 +21,11 @@ class Nup < ApplicationRecord
     cash:     0,
     transfer: 1
   }
+
+  enum :status, {
+    pending:  0,
+    approved: 1,
+    rejected: 2
+  }
   
 end
