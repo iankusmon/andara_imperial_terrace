@@ -5,6 +5,11 @@ class Customer < ApplicationRecord
       female: 1
     }
 
+    #Enum
+    enum :roles, { 
+        customer: 0, 
+        agen_affiliate: 1 
+    }
     # Associations
     has_many :villa_units
     has_many :villa_rent_units
