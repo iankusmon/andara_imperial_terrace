@@ -65,6 +65,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
+    t.string "password_confirmation"
+    t.datetime "birthday"
+    t.integer "gender"
     t.integer "nik"
     t.integer "roles"
     t.boolean "is_deleted", default: false
@@ -96,6 +99,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "share_social_media", force: :cascade do |t|
+    t.integer "name"
+    t.boolean "is_callback"
+    t.string "callback_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "tour_packages", force: :cascade do |t|
     t.string "name"
     t.integer "price"
@@ -122,6 +133,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
     t.datetime "booking_fee_paid_date"
     t.integer "commision_rule_id"
     t.string "description"
+    t.integer "type"
     t.integer "availability_status"
     t.string "street_address"
     t.float "price"
@@ -129,26 +141,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_20_025359) do
     t.integer "building_area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "share_social_media", force: :cascade do |t|
-    t.integer "name"
-    t.boolean "is_callback"
-    t.string "callback_url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "tour_packages", force: :cascade do |t|
-    t.string "name"
-    t.integer "price"
-    t.integer "payment_status"
-    t.integer "drop_point_status"
-    t.boolean "is_stay"
-    t.integer "tour_days"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.text "destination_ids", default: "--- []\n"
+    t.string "floor_type"
   end
 
   create_table "visit_records", force: :cascade do |t|
