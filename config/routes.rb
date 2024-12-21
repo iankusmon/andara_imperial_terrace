@@ -22,6 +22,26 @@ Rails.application.routes.draw do
   post 'api/packages', to: 'api/packages#create'
   put 'api/packages/:id', to: 'api/packages#update'
 
+  ## Admins
+
+  get 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#index"
+  # get 'api/admins/customers/kpr_documents/:id' => "api/admins/customers/kpr_documents/:id#show"
+  post 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#create"
+  # put 'api/admins/customers/kpr_documents/:id' => "api/admins/customers/kpr_documents/:id#update"
+
+  ## Customers
+
+  get 'api/customers/kpr_documents' => "api/customers/kpr_documents#index"
+  # get 'api/customers/kpr_documents/:id' => "api/customers/kpr_documents/:id#show"
+  post 'api/customers/kpr_documents' => "api/customers/kpr_documents#create"
+  # put 'api/customers/kpr_documents/:id' => "api/customers/kpr_documents/:id#update"
+
+  # KPR Feature
+
+  ## KPR Calculator
+  post 'api/customers/kpr_calculators' => "api/customers/kpr_calculators#execute"
+  
+
   # Admins
   
   get 'api/admins/customers', action: :index, controller: 'api/admins/customers'
