@@ -4,8 +4,15 @@ module Api
       # Private Endpoint
       # GET /admins/nups
       def index
+          filter_params = index_request
           nups = Nup.all
-
+          nups = nups.where('nup_number LIKE ?', "%#{filter_params[:nup_number]}%") if filter_params[:nup_number].present?
+          nups = nups.where('order_number LIKE ?', "%#{filter_params[:order_number]}%") if filter_params[:order_number].present?
+          nups = nups.where('fullname LIKE ?', "%#{filter_params[:fullname]}%") if filter_params[:fullname].present?
+          nups = nups.where('nik LIKE ?', "%#{filter_params[:nik]}%") if filter_params[:nik].present?
+          nups = nups.where("mobile LIKE ?", "%#{filter_params[:mobile]}%") if filter_params[:mobile].present?
+          nups = nups.where(package: filter_params[:package]) if filter_params[:package].present?
+          nups = nups.where(payment_method: filter_params[:payment_method]) if filter_params[:payment_method].present?
           render(
             json: nups,
             root: :nups,
@@ -53,6 +60,17 @@ module Api
 
       private
 
+      def index_request
+        params.permit(
+              :nup_number,
+              :order_number,
+              :fullname,
+              :nik,
+              :package,
+              :payment_method
+          )
+      end
+
       def create_request
           params.require(:nup).permit(
             :nup_number,
@@ -61,6 +79,7 @@ module Api
             :nik,
             :occupation,
             :scan_ktp_url,
+            :payment_receipt_url,
             :package,
             :villa_desired,
             :payment_method,
@@ -77,6 +96,7 @@ module Api
             :nik,
             :occupation,
             :scan_ktp_url,
+            :payment_receipt_url,
             :package,
             :villa_desired,
             :payment_method,

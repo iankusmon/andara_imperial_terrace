@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_21_060149) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_22_152522) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -113,6 +113,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_21_060149) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status"
+    t.string "payment_receipt_url"
   end
 
   create_table "share_social_media", force: :cascade do |t|

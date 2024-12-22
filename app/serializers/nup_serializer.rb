@@ -6,6 +6,7 @@ class NupSerializer < ActiveModel::Serializer
              :nik,
              :occupation,
              :scan_ktp_url,
+             :payment_receipt_url,
              :package,
              :villa_desired,
              :payment_method,
