@@ -7,39 +7,30 @@ module Api
     def create
         nup_params = create_request
 
-        if Customer.find_by(email: nup_params[:email])
-        render json: { error: "This Customer already exists" }, status: :bad_request
+        if Nup.find_by(nup_number: nup_params[:nup_number])
+        render json: { error: "This Nup already exists" }, status: :bad_request
         else
-        customer = Customer.create!(nup_params)
-        render json: customer, status: :ok
+        nup = Nup.create!(nup_params)
+        render json: nup, status: :ok
         end
     end
 
     private
 
     def create_request
-        params.require(:customer).permit(
-            :name, 
-            :email, 
-            :username, 
-            :mobile, 
-            :referreral_code, 
-            :visit_id, 
-            :kpr_document_id, 
-            :villa_unit_id, 
-            :last_login_at, 
-            :villa_rent_id, 
-            :package_id, 
-            :created_at, 
-            :updated_at, 
-            :is_buyer, 
-            :is_renter, 
-            :is_package, 
-            :is_package_buyer, 
-            :password, 
-            :password_digest, 
-            :photo_profile_url, 
-            :customer_address_id
+        params.require(:nup).permit(
+          :nup_number,
+          :order_number,
+          :fullname,
+          :nik,
+          :occupation,
+          :scan_ktp_url,
+          :payment_receipt_url,
+          :package,
+          :villa_desired,
+          :payment_method,
+          :address,
+          :status
         )
     end
           

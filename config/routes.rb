@@ -31,6 +31,13 @@ Rails.application.routes.draw do
   post "api/admins/nups" => "api/admins/nups#create"
   patch "api/admins/nups/:id" => "api/admins/nups#update"
 
+  # Booking Fee Features
+
+  get "api/admins/booking_fees" => "api/admins/booking_fees#index"
+  get "api/admins/booking_fees/:id" => "api/admins/booking_fees#show"
+  post "api/admins/booking_fees" => "api/admins/booking_fees#create"
+  patch "api/admins/booking_fees/:id" => "api/admins/booking_fees#update"
+
   # KPR Features
 
   get 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#index"
@@ -43,6 +50,7 @@ Rails.application.routes.draw do
   # NUP Features
 
   post 'api/customers/nups' => "api/customers/nups#create"
+  post 'api/customers/booking_fees' => "api/customers/booking_fees#create"
 
   # KPR Feature
 

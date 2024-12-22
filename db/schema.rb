@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_22_152522) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_22_153644) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -25,6 +25,31 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_22_152522) do
     t.string "photo_profil_url"
     t.string "password_confirmation"
     t.integer "active_status", default: 1
+  end
+
+  create_table "booking_fees", force: :cascade do |t|
+    t.integer "booking_fee_number"
+    t.integer "order_number"
+    t.integer "payment_type"
+    t.integer "payment_method"
+    t.integer "cash_tempo_period"
+    t.string "fullname"
+    t.integer "nik"
+    t.integer "occupation"
+    t.string "scan_ktp_url"
+    t.string "scan_kk_url"
+    t.string "scan_npwp_url"
+    t.string "scan_buku_nikah_url"
+    t.string "scan_last_3_months_slip_gaji_url"
+    t.string "scan_last_3_months_rekening_koran_url"
+    t.string "scan_sk_pekerjaan_url"
+    t.string "scan_fc_legal_usaha_url"
+    t.string "scan_laporan_keuangan_url"
+    t.string "scan_last_3_months_rekening_koran_usaha_url"
+    t.string "status"
+    t.string "payment_receipt_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "customer_addresses", force: :cascade do |t|
