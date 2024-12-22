@@ -90,12 +90,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_22_153644) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
-    t.string "password_confirmation"
-    t.datetime "birthday"
-    t.integer "gender"
     t.integer "nik"
     t.integer "roles"
     t.boolean "is_deleted", default: false
+    t.string "password_confirmation"
+    t.datetime "birthday"
+    t.integer "gender"
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -184,6 +184,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_22_153644) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "floor_type"
+    t.integer "villa_type"
   end
 
   create_table "visit_records", force: :cascade do |t|

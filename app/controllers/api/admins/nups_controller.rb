@@ -13,6 +13,7 @@ module Api
           nups = nups.where("mobile LIKE ?", "%#{filter_params[:mobile]}%") if filter_params[:mobile].present?
           nups = nups.where(package: filter_params[:package]) if filter_params[:package].present?
           nups = nups.where(payment_method: filter_params[:payment_method]) if filter_params[:payment_method].present?
+          nups = nups.where(status: filter_params[:status]) if filter_params[:status].present?
           render(
             json: nups,
             root: :nups,
@@ -67,7 +68,8 @@ module Api
               :fullname,
               :nik,
               :package,
-              :payment_method
+              :payment_method,
+              :status
           )
       end
 
