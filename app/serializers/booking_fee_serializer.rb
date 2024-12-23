@@ -1,5 +1,6 @@
 class BookingFeeSerializer < ActiveModel::Serializer
-  attributes  :booking_fee_number,
+  attributes  :id,
+              :booking_fee_number,
               :order_number,
               :payment_type,
               :payment_method,
