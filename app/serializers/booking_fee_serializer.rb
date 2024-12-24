@@ -8,6 +8,8 @@ class BookingFeeSerializer < ActiveModel::Serializer
               :fullname,
               :nik,
               :occupation,
+              :payment_receipt_url,
+              :note,
               :scan_ktp_url,
               :scan_kk_url,
               :scan_npwp_url,

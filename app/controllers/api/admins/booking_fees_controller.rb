@@ -11,6 +11,7 @@ module Api
           booking_fees = booking_fees.where('fullname LIKE ?', "%#{filter_params[:fullname]}%") if filter_params[:fullname].present?
           booking_fees = booking_fees.where('nik LIKE ?', "%#{filter_params[:nik]}%") if filter_params[:nik].present?
           booking_fees = booking_fees.where(payment_method: filter_params[:payment_method]) if filter_params[:payment_method].present?
+          booking_fees = booking_fees.where(payment_type: filter_params[:payment_type]) if filter_params[:payment_type].present?
           render(
             json: booking_fees,
             root: :booking_fees,

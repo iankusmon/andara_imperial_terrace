@@ -11,5 +11,6 @@ class NupSerializer < ActiveModel::Serializer
              :villa_desired,
              :payment_method,
              :address,
-             :status
+             :status,
+             :note
 end

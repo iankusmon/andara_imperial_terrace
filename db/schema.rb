@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_24_002033) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_24_002500) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -105,6 +105,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_002033) do
     t.string "description"
     t.string "picture_url"
     t.integer "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "down_payments", force: :cascade do |t|
+    t.integer "down_payment_number"
+    t.integer "order_number"
+    t.integer "payment_type"
+    t.integer "payment_method"
+    t.integer "payment_amount"
+    t.integer "tempo_period"
+    t.string "fullname"
+    t.integer "nik"
+    t.integer "occupation"
+    t.integer "villa_desired"
+    t.string "status"
+    t.string "payment_receipt_url"
+    t.text "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

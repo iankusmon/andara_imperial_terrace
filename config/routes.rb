@@ -38,6 +38,13 @@ Rails.application.routes.draw do
   post "api/admins/booking_fees" => "api/admins/booking_fees#create"
   patch "api/admins/booking_fees/:id" => "api/admins/booking_fees#update"
 
+  # Down Payment Feature
+
+  get "api/admins/down_payments" => "api/admins/down_payments#index"
+  get "api/admins/down_payments/:id" => "api/admins/down_payments#show"
+  post "api/admins/down_payments" => "api/admins/down_payments#create"
+  patch "api/admins/down_payments/:id" => "api/admins/down_payments#update"
+
   # KPR Feature
 
   get 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#index"
@@ -54,6 +61,10 @@ Rails.application.routes.draw do
   # Booking Fee Feature
 
   post 'api/customers/booking_fees' => "api/customers/booking_fees#create"
+
+  # Down Payment Feature
+
+  post 'api/customers/down_payments' => "api/customers/down_payments#create"
 
   # KPR Feature
 
