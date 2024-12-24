@@ -29,5 +29,11 @@ class BookingFee < ApplicationRecord
     six_months: 1,
     twelve_months: 2
   }
+
+  enum :kpr_tenor_period, {
+    ten_years:  0,
+    fifteen_years: 1,
+    twenty_years: 2
+  }
   
 end
