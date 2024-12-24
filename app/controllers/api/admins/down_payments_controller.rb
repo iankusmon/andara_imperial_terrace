@@ -65,41 +65,45 @@ module Api
               :order_number,
               :fullname,
               :nik,
-              :payment_type,
               :payment_method,
-              :tempo_period
+              :payment_type,
+              :status
           )
       end
 
       def create_request
           params.require(:down_payment).permit(
-                :down_payment_number,
-                :order_number,
-                :payment_type,
-                :payment_method,
-                :payment_amount,
-                :tempo_period,
-                :fullname,
-                :nik,
-                :villa_desired,
-                :payment_receipt_url,
-                :note
+            :down_payment_number,
+            :order_number,
+            :payment_type,
+            :payment_method,
+            :payment_amount,
+            :tempo_period,
+            :fullname,
+            :nik,
+            :occupation,
+            :status,
+            :payment_receipt_url,
+            :note,
+            :status
           )
       end
 
       def update_request
           params.require(:down_payment).permit(
-                :down_payment_number,
-                :order_number,
-                :payment_type,
-                :payment_method,
-                :payment_amount,
-                :tempo_period,
-                :fullname,
-                :nik,
-                :villa_desired,
-                :payment_receipt_url,
-                :note
+            :down_payment_number,
+            :order_number,
+            :payment_type,
+            :payment_method,
+            :payment_amount,
+            :tempo_period,
+            :fullname,
+            :nik,
+            :occupation,
+            :status,
+            :payment_receipt_url,
+            :note,
+            :status
           )
       end
             

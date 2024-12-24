@@ -10,6 +10,7 @@ class DownPaymentSerializer < ActiveModel::Serializer
               :nik,
               :occupation,
               :payment_receipt_url,
-              :note
+              :note,
+              :status
             
 end
