@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_24_075030) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_27_063501) do
   create_table "admins", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -25,6 +25,24 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_075030) do
     t.string "photo_profil_url"
     t.string "password_confirmation"
     t.integer "active_status", default: 1
+  end
+
+  create_table "ajb_documents", force: :cascade do |t|
+    t.integer "ppjb_number"
+    t.integer "booking_fee_number"
+    t.integer "down_payment_number"
+    t.integer "order_number"
+    t.string "villa_booked_unit"
+    t.string "villa_booked_cluster"
+    t.string "villa_booked_street"
+    t.string "fullname"
+    t.integer "nik"
+    t.integer "occupation"
+    t.string "status"
+    t.string "documentation_photo"
+    t.string "scan_ajb_document"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "booking_fees", force: :cascade do |t|
@@ -45,7 +63,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_075030) do
     t.string "scan_sk_pekerjaan_url"
     t.string "scan_fc_legal_usaha_url"
     t.string "scan_laporan_keuangan_url"
-    t.string "scan_last_3_months_rekening_koran_usaha_url"
+    t.string "scan_last_6_months_rekening_koran_usaha_url"
     t.integer "status"
     t.string "payment_receipt_url"
     t.datetime "created_at", null: false
@@ -92,12 +110,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_075030) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
-    t.integer "nik"
-    t.integer "roles"
-    t.boolean "is_deleted", default: false
     t.string "password_confirmation"
     t.datetime "birthday"
     t.integer "gender"
+    t.integer "nik"
+    t.integer "roles"
+    t.boolean "is_deleted", default: false
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -161,6 +179,23 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_075030) do
     t.text "note"
   end
 
+  create_table "ppjb_documents", force: :cascade do |t|
+    t.integer "ajb_number"
+    t.integer "booking_fee_number"
+    t.integer "down_payment_number"
+    t.integer "order_number"
+    t.string "villa_booked_unit"
+    t.string "villa_booked_cluster"
+    t.string "villa_booked_street"
+    t.string "fullname"
+    t.integer "nik"
+    t.integer "occupation"
+    t.string "status"
+    t.string "scan_ppjb_document"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "share_social_media", force: :cascade do |t|
     t.integer "name"
     t.boolean "is_callback"
@@ -204,7 +239,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_24_075030) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "floor_type"
-    t.integer "villa_type"
   end
 
   create_table "visit_records", force: :cascade do |t|

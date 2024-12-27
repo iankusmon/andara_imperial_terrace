@@ -1,4 +1,5 @@
 class BookingFee < ApplicationRecord
+  has_one_attached :file
 
   # Enumerations
   enum :occupation, {

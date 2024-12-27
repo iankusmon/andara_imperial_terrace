@@ -95,7 +95,8 @@ module Api
             :payment_receipt_url,
             :kpr_tenor_period,
             :note,
-            :status
+            :status,
+            :file
           )
       end
 
@@ -122,7 +123,8 @@ module Api
             :payment_receipt_url,
             :kpr_tenor_period,
             :note,
-            :status
+            :status,
+            :file
           )
       end
             

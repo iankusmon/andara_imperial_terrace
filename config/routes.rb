@@ -75,7 +75,19 @@ Rails.application.routes.draw do
 
   ## KPR Calculator
   post 'api/customers/kpr_calculators' => "api/customers/kpr_calculators#execute"
-    
+
+  # AJB dan PPJB Feature
+   
+  get "api/admins/ajb_documents" => "api/admins/ajb_documents#index"
+  get "api/admins/ajb_documents/:id" => "api/admins/ajb_documents#show"
+  post "api/admins/ajb_documents" => "api/admins/ajb_documents#create"
+  patch "api/admins/ajb_documents/:id" => "api/admins/ajb_documents#update"
+
+  get "api/admins/ppjb_documents" => "api/admins/ppjb_documents#index"
+  get "api/admins/ppjb_documents/:id" => "api/admins/ppjb_documents#show"
+  post "api/admins/ppjb_documents" => "api/admins/ppjb_documents#create"
+  patch "api/admins/ppjb_documents/:id" => "api/admins/ppjb_documents#update"
+
   get 'api/admins/customers', action: :index, controller: 'api/admins/customers'
   get 'api/admins/customers/:id', action: :show, controller: 'api/admins/customers'
   post 'api/admins/customers', action: :create, controller: 'api/admins/customers'
