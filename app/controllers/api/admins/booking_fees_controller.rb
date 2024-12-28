@@ -47,6 +47,22 @@ module Api
       def update
           booking_fee = BookingFee.find_by(id: params[:id])
           update_params = update_request
+          
+          byebug
+
+          # Save ke documents
+          booking_fee.document.attach(params[:document])
+          booking_fee.save!
+          # Get url from document
+          if booking_fee.document.attached?
+            spkb_url = Rails.application.routes.url_helpers.rails_blob_path(document, only_path: true)
+          end
+
+          byebug
+
+          # Save turl to booking_fees, by appending spkb_url update_params 
+
+          update_params[:upload_spkb_doc] = spkb_url
 
           # Check whether booking_fee exist
           if booking_fee.nil?
