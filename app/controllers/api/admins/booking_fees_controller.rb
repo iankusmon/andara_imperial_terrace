@@ -48,36 +48,26 @@ module Api
           booking_fee = BookingFee.find_by(id: params[:id])
           update_params = update_request
 
-          # Delete old attachement first, before attach new one
-          attachment = ActiveStorage::Attachment.find_by(record_id: booking_fee.id)
-          attachment.purge # or use purge_later
+          
+          if params[:document][:file] != "null"
+            # Delete old attachment first
+            old_spkb_document = ActiveStorage::Blob.find_by(filename: "spkb_document#{booking_fee.id}")
+            old_spkb_document&.purge
 
-          # Create a blob before direct upload to generate a signed url
-          blob = ActiveStorage::Blob.create_before_direct_upload!(
-            filename: params[:document][:document_type],
-            byte_size: 1000,
-            checksum: '528c89c37b3a6f0bd34480000a56c372',
-            content_type: 'document'
-          )
+            # Save to documents
+            booking_fee.document.attach(io: params[:document][:file], filename: "#{params[:document][:document_type]}_#{booking_fee.id}", content_type: "docx/pdf")
+            # params[:document][:file].rewind
 
-          # Attach the blob to the project by creating the association in the database directly.
-          ActiveStorage::Attachment.create(
-              name: 'document',
-              record_type: 'BookingFee',
-              record_id: booking_fee.id,
-              blob_id: blob.id
-          )
+            booking_fee.save!
+          end
+          
 
-          # Save ke documents
-          # booking_fee.document.attach(params[:document])
-          # booking_fee.save!
           # Get url from document
           if booking_fee.document.attached?
             spkb_url = ::Rails.application.routes.url_helpers.rails_blob_path(booking_fee.document, only_path: true)
           end
 
           # Save turl to booking_fees, by appending spkb_url update_params 
-
           update_params[:upload_spkb_doc] = spkb_url
 
           # Check whether booking_fee exist
@@ -87,6 +77,24 @@ module Api
           booking_fee.update!(update_params)
           render json: booking_fee, status: :ok
           end
+      end
+
+      def download_spkb_document
+        booking_fee = BookingFee.find_by(id: params[:id])
+
+        if booking_fee.document.nil?
+          render json: { error: "SPKB Document not found" }, status: :not_found
+        else
+          # Download SPKB Document
+          send_data booking_fee.document.download,
+                filename: booking_fee.document.filename.to_s,
+                type: booking_fee.document.content_type,
+                disposition: 'attachment'
+
+          # booking_fee.document.download
+          # render json: { message: "SPKB Document has been donwnloaded" }, status: :ok
+        end
+        
       end
 
       private

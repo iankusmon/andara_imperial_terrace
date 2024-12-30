@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   get "api/admins/booking_fees/:id" => "api/admins/booking_fees#show"
   post "api/admins/booking_fees" => "api/admins/booking_fees#create"
   patch "api/admins/booking_fees/:id" => "api/admins/booking_fees#update"
+  get "api/admins/booking_fees/:id/download_spkb_documents/" => "api/admins/booking_fees#download_spkb_document"
 
   # Down Payment Feature
 
