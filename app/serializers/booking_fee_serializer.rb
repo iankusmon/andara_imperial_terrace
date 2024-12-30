@@ -17,9 +17,10 @@ class BookingFeeSerializer < ActiveModel::Serializer
               :scan_sk_pekerjaan_url,
               :scan_fc_legal_usaha_url,
               :scan_laporan_keuangan_url,
-              :scan_last_3_months_rekening_koran_usaha_url,
+              :scan_last_6_months_rekening_koran_usaha_url,
               :payment_receipt_url,
               :kpr_tenor_period,
               :note,
-              :status
+              :status,
+              :upload_spkb_doc
 end

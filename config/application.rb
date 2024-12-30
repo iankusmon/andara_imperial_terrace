@@ -31,6 +31,8 @@ module AndaraImperialTerrace
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
 
+    config.active_storage.replace_on_assign_to_many = false
+
     # Enable Session && Cookies storing
     config.session_store :cookie_store, key: '_interslice_session'
     config.middleware.use ActionDispatch::Cookies

@@ -91,7 +91,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_035018) do
     t.string "scan_sk_pekerjaan_url"
     t.string "scan_fc_legal_usaha_url"
     t.string "scan_laporan_keuangan_url"
-    t.string "scan_last_3_months_rekening_koran_usaha_url"
+    t.string "scan_last_6_months_rekening_koran_usaha_url"
     t.integer "status"
     t.string "payment_receipt_url"
     t.datetime "created_at", null: false
@@ -139,12 +139,12 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_035018) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
-    t.integer "nik"
-    t.integer "roles"
-    t.boolean "is_deleted", default: false
     t.string "password_confirmation"
     t.datetime "birthday"
     t.integer "gender"
+    t.integer "nik"
+    t.integer "roles"
+    t.boolean "is_deleted", default: false
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -268,7 +268,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_035018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "floor_type"
-    t.integer "villa_type"
   end
 
   create_table "visit_records", force: :cascade do |t|

@@ -47,18 +47,34 @@ module Api
       def update
           booking_fee = BookingFee.find_by(id: params[:id])
           update_params = update_request
-          
-          byebug
+
+          # Delete old attachement first, before attach new one
+          attachment = ActiveStorage::Attachment.find_by(record_id: booking_fee.id)
+          attachment.purge # or use purge_later
+
+          # Create a blob before direct upload to generate a signed url
+          blob = ActiveStorage::Blob.create_before_direct_upload!(
+            filename: params[:document][:document_type],
+            byte_size: 1000,
+            checksum: '528c89c37b3a6f0bd34480000a56c372',
+            content_type: 'document'
+          )
+
+          # Attach the blob to the project by creating the association in the database directly.
+          ActiveStorage::Attachment.create(
+              name: 'document',
+              record_type: 'BookingFee',
+              record_id: booking_fee.id,
+              blob_id: blob.id
+          )
 
           # Save ke documents
-          booking_fee.document.attach(params[:document])
-          booking_fee.save!
+          # booking_fee.document.attach(params[:document])
+          # booking_fee.save!
           # Get url from document
           if booking_fee.document.attached?
-            spkb_url = Rails.application.routes.url_helpers.rails_blob_path(document, only_path: true)
+            spkb_url = ::Rails.application.routes.url_helpers.rails_blob_path(booking_fee.document, only_path: true)
           end
-
-          byebug
 
           # Save turl to booking_fees, by appending spkb_url update_params 
 
@@ -107,12 +123,11 @@ module Api
             :scan_sk_pekerjaan_url,
             :scan_fc_legal_usaha_url,
             :scan_laporan_keuangan_url,
-            :scan_last_3_months_rekening_koran_usaha_url,
+            :scan_last_6_months_rekening_koran_usaha_url,
             :payment_receipt_url,
             :kpr_tenor_period,
             :note,
-            :status,
-            :file
+            :status
           )
       end
 
@@ -135,12 +150,11 @@ module Api
             :scan_sk_pekerjaan_url,
             :scan_fc_legal_usaha_url,
             :scan_laporan_keuangan_url,
-            :scan_last_3_months_rekening_koran_usaha_url,
+            :scan_last_6_months_rekening_koran_usaha_url,
             :payment_receipt_url,
             :kpr_tenor_period,
             :note,
-            :status,
-            :file
+            :status
           )
       end
             
