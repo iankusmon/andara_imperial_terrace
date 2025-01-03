@@ -7,10 +7,17 @@ module Cms
     accepts_nested_attributes_for :sections
     accepts_nested_attributes_for :meta_data
 
+    enum :category, {
+      penjualan: 0,
+      penyewaan: 1,
+      tender: 2, 
+      agent_affiliate: 3,
+      paket_wisata: 4
+    }
+
     enum :active_status, {
       disabled: 0, 
       enabled: 1, 
-      
     }
 
     # Convert \n separated paragraphs of summary into array of summary
