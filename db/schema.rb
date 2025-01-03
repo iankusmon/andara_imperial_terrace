@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_28_035018) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_03_004634) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -99,6 +99,41 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_035018) do
     t.text "note"
     t.integer "kpr_tenor_period"
     t.binary "upload_spkb_doc"
+  end
+
+  create_table "cms_article_meta_data", force: :cascade do |t|
+    t.integer "cms_article_id"
+    t.text "title"
+    t.text "keyword"
+    t.text "description"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["cms_article_id"], name: "index_cms_article_meta_data_on_cms_article_id"
+  end
+
+  create_table "cms_article_sections", force: :cascade do |t|
+    t.integer "cms_article_id"
+    t.text "title"
+    t.string "image_url"
+    t.text "description"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["cms_article_id"], name: "index_cms_article_sections_on_cms_article_id"
+  end
+
+  create_table "cms_articles", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "summary"
+    t.text "introduction"
+    t.text "closing"
+    t.string "hero_img_url"
+    t.string "url", null: false
+    t.string "active_status"
+    t.string "category", null: false
+    t.datetime "published_at", precision: nil
+    t.boolean "is_deleted", default: false, null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "customer_addresses", force: :cascade do |t|
@@ -282,4 +317,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_28_035018) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "cms_article_meta_data", "cms_articles"
+  add_foreign_key "cms_article_sections", "cms_articles"
 end
