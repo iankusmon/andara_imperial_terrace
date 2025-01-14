@@ -1,15 +1,16 @@
 class PpjbDocumentSerializer < ActiveModel::Serializer
   attributes  :id,
               :ppjb_number,
-              :booking_fee_number,
-              :down_payment_number,
-              :order_number,
-              :villa_booked_unit,
-              :villa_booked_cluster,
-              :villa_booked_street,
-              :fullname,
+              :customer_id,
+              :customer_name,
               :nik,
-              :occupation,
-              :status,
-              :documentation_photo
+              :mobile,
+              :villa_unit_type,
+              :villa_floor_type,
+              :villa_price,
+              :order_number,
+              :down_payment_status,
+              :down_payment_receipt_url,
+              :upload_ppjb_doc,
+              :upload_status
 end
