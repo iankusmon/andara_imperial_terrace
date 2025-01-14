@@ -53,6 +53,27 @@ Rails.application.routes.draw do
   post 'api/admins/customers/kpr_documents' => "api/admins/customers/kpr_documents#create"
   # put 'api/admins/customers/kpr_documents/:id' => "api/admins/customers/kpr_documents/:id#update"
 
+  #KPR Admin Feature
+
+  get "api/admins/kprs" => "api/admins/kprs#index"
+  get "api/admins/kprs/:id" => "api/admins/kprs#show"
+  post "api/admins/kprs" => "api/admins/kprs#create"
+  patch "api/admins/kprs/:id" => "api/admins/kprs#update"
+
+  #CMS Article Feature
+
+  get "api/admins/articles" => "api/admins/articles#index"
+  get "api/admins/articles/:id" => "api/admins/articles#show"
+  post "api/admins/articles" => "api/admins/articles#create"
+  patch "api/admins/articles/:id" => "api/admins/articles#update" 
+
+  #Villa Unit Kavling
+  get "api/admins/villa_unit_kavlings" => "api/admins/villa_unit_kavlings#index"
+  get "api/admins/villa_unit_kavlings/:id" => "api/admins/villa_unit_kavlings#show"
+  post "api/admins/villa_unit_kavlings" => "api/admins/villa_unit_kavlings#create"
+  patch "api/admins/villa_unit_kavlings/:id" => "api/admins/villa_unit_kavlings#update" 
+  
+
   ## Customers
 
   # NUP Feature

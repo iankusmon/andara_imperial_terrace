@@ -12,6 +12,9 @@ module Api
           booking_fees = booking_fees.where('nik LIKE ?', "%#{filter_params[:nik]}%") if filter_params[:nik].present?
           booking_fees = booking_fees.where(payment_method: filter_params[:payment_method]) if filter_params[:payment_method].present?
           booking_fees = booking_fees.where(payment_type: filter_params[:payment_type]) if filter_params[:payment_type].present?
+          booking_fees = booking_fees.where(cash_tempo_period: filter_params[:cash_tempo_period]) if filter_params[:cash_tempo_period].present?
+          booking_fees = booking_fees.where(kpr_tenor_period: filter_params[:kpr_tenor_period]) if filter_params[:kpr_tenor_period].present?
+          booking_fees = booking_fees.where(status: filter_params[:status]) if filter_params[:status].present?
           render(
             json: booking_fees,
             root: :booking_fees,
@@ -108,6 +111,7 @@ module Api
               :payment_type,
               :payment_method,
               :cash_tempo_period,
+              :kpr_tenor_period,
               :status
           )
       end

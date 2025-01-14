@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -56,21 +56,26 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
   end
 
   create_table "ajb_documents", force: :cascade do |t|
+    t.integer "ajb_number"
     t.integer "ppjb_number"
-    t.integer "booking_fee_number"
-    t.integer "down_payment_number"
-    t.integer "order_number"
-    t.string "villa_booked_unit"
-    t.string "villa_booked_cluster"
-    t.string "villa_booked_street"
-    t.string "fullname"
+    t.integer "customer_id"
+    t.string "customer_name"
     t.integer "nik"
-    t.integer "occupation"
-    t.string "status"
-    t.string "documentation_photo"
-    t.string "scan_ajb_document"
+    t.integer "mobile"
+    t.integer "villa_unit_type"
+    t.integer "villa_floor_type"
+    t.integer "villa_price"
+    t.integer "order_number"
+    t.integer "booking_fee_status"
+    t.string "booking_fee_receipt_url"
+    t.integer "down_payment_status"
+    t.string "down_payment_receipt_url"
+    t.integer "payment_type"
+    t.integer "payment_type_status"
+    t.integer "ajb_upload_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.binary "upload_ajb_doc"
   end
 
   create_table "booking_fees", force: :cascade do |t|
@@ -91,7 +96,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.string "scan_sk_pekerjaan_url"
     t.string "scan_fc_legal_usaha_url"
     t.string "scan_laporan_keuangan_url"
-    t.string "scan_last_6_months_rekening_koran_usaha_url"
+    t.string "scan_last_3_months_rekening_koran_usaha_url"
     t.integer "status"
     t.string "payment_receipt_url"
     t.datetime "created_at", null: false
@@ -99,6 +104,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.text "note"
     t.integer "kpr_tenor_period"
     t.binary "upload_spkb_doc"
+  end
+
+  create_table "buyers", force: :cascade do |t|
+    t.integer "nup_id"
+    t.integer "booking_fee_id"
+    t.integer "down_payment_id"
+    t.integer "pelunasan_id"
+    t.string "name"
+    t.string "nik"
+    t.string "mobile"
+    t.integer "villa_unit_kavling_id"
+    t.integer "payment_type"
+    t.integer "payment_method"
   end
 
   create_table "cms_article_meta_data", force: :cascade do |t|
@@ -128,7 +146,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.text "closing"
     t.string "hero_img_url"
     t.string "url", null: false
-    t.string "active_status"
+    t.integer "active_status"
     t.integer "category", null: false
     t.datetime "published_at", precision: nil
     t.boolean "is_deleted", default: false, null: false
@@ -174,12 +192,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
-    t.string "password_confirmation"
-    t.datetime "birthday"
-    t.integer "gender"
     t.integer "nik"
     t.integer "roles"
     t.boolean "is_deleted", default: false
+    t.string "password_confirmation"
+    t.datetime "birthday"
+    t.integer "gender"
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -225,6 +243,30 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "kprs", force: :cascade do |t|
+    t.integer "kpr_id"
+    t.integer "customer_id"
+    t.string "customer_name"
+    t.integer "nik"
+    t.integer "mobile"
+    t.text "customer_address"
+    t.integer "nup_number"
+    t.integer "booking_fee_status"
+    t.string "url_spkb_document"
+    t.integer "down_payment_status"
+    t.integer "bank"
+    t.date "filing_date"
+    t.integer "submission_status"
+    t.float "loan_amount"
+    t.integer "tenor_period"
+    t.float "monthly_installments"
+    t.date "due_date"
+    t.text "note"
+    t.integer "kpr_payment_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "nups", force: :cascade do |t|
     t.integer "nup_number"
     t.integer "order_number"
@@ -244,18 +286,19 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
   end
 
   create_table "ppjb_documents", force: :cascade do |t|
-    t.integer "ajb_number"
-    t.integer "booking_fee_number"
-    t.integer "down_payment_number"
-    t.integer "order_number"
-    t.string "villa_booked_unit"
-    t.string "villa_booked_cluster"
-    t.string "villa_booked_street"
-    t.string "fullname"
+    t.integer "ppjb_number"
+    t.integer "customer_id"
+    t.string "customer_name"
     t.integer "nik"
-    t.integer "occupation"
-    t.string "status"
-    t.string "scan_ppjb_document"
+    t.integer "mobile"
+    t.integer "villa_unit_type"
+    t.integer "villa_floor_type"
+    t.integer "villa_price"
+    t.integer "order_number"
+    t.integer "down_payment_status"
+    t.string "down_payment_receipt_url"
+    t.binary "upload_ppjb_doc"
+    t.integer "upload_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -278,6 +321,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "destination_ids", default: "--- []\n"
+  end
+
+  create_table "villa_unit_kavlings", force: :cascade do |t|
+    t.integer "kavling_id"
+    t.integer "nup_id"
+    t.integer "booking_fee_id"
+    t.integer "down_payment_id"
+    t.integer "pelunasan_id"
+    t.integer "approved_by"
+    t.text "description"
+    t.integer "payment_status"
+    t.integer "kavling_type"
+    t.integer "availability_status"
+    t.text "street_address"
+    t.float "price"
+    t.integer "surface_area"
+    t.integer "building_area"
   end
 
   create_table "villa_units", force: :cascade do |t|
@@ -303,6 +363,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_03_015520) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "floor_type"
+    t.integer "villa_type"
+    t.integer "eiffel_room_type"
+    t.integer "venice_room_type"
+    t.integer "villa_theme"
   end
 
   create_table "visit_records", force: :cascade do |t|

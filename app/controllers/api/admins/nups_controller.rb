@@ -14,6 +14,7 @@ module Api
           nups = nups.where(package: filter_params[:package]) if filter_params[:package].present?
           nups = nups.where(payment_method: filter_params[:payment_method]) if filter_params[:payment_method].present?
           nups = nups.where(status: filter_params[:status]) if filter_params[:status].present?
+          nups = nups.where(villa_desired: filter_params[:villa_desired]) if filter_params[:villa_desired].present?
           render(
             json: nups,
             root: :nups,
@@ -69,6 +70,7 @@ module Api
               :nik,
               :package,
               :payment_method,
+              :villa_desired,
               :status
           )
       end
