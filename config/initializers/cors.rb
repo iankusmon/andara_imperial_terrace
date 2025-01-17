@@ -25,6 +25,7 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
               '10.0.2.2:3004',
               'localhost:3005',
               'localhost:3333',
+              'localhost:30099',
               '127.0.0.1:19000'
     end
 
