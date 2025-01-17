@@ -7,6 +7,7 @@ module Api
           filter_params = index_request
           cms_articles = Cms::Article.all
           cms_articles = cms_articles.where('title LIKE ?', "%#{filter_params[:title]}%") if filter_params[:title].present?
+          cms_articles = cms_articles.where('url LIKE ?', "%#{filter_params[:url]}%") if filter_params[:url].present?
           cms_articles = cms_articles.where(active_status: filter_params[:active_status]) if filter_params[:active_status].present?
           cms_articles = cms_articles.where(category: filter_params[:category]) if filter_params[:category].present?
           render(
@@ -60,7 +61,8 @@ module Api
         params.permit(
             :title,
             :active_status,
-            :category
+            :category,
+            :url
           )
       end
 
