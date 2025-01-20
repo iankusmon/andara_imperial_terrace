@@ -13,8 +13,8 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
               'admin.andaraimperialterrace.co.id'      # internal/admin
 
     elsif Rails.env.staging?
-      origins 'andaraimptrrc.click',
-              'admin.andaraimptrrc.click'
+      origins 'andaraimperialterrace.click',
+              'admin.andaraimperialterrace.click'
 
     else
       origins 'localhost:3001',
@@ -26,7 +26,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
               'localhost:3005',
               'localhost:3333',
               'localhost:30099',
-              '127.0.0.1:19000'
+              '127.0.0.1:19000',
+              'andaraimperialterrace.click',
+              'admin.andaraimperialterrace.click'
     end
 
     resource '*', headers:     :any,
