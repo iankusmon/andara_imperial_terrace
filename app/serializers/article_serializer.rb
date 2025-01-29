@@ -10,4 +10,8 @@ class ArticleSerializer < ActiveModel::Serializer
               :category,
               :published_at,
               :is_deleted
+
+              has_one :meta_data
+              has_many :sections, serializer: ArticleSectionSerializer
+
 end

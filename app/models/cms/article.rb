@@ -9,7 +9,7 @@ module Cms
     accepts_nested_attributes_for :meta_data
 
     validates :title, presence: true, uniqueness: { case_sensitive: false }
-    validates :hero_image_url, uniqueness: true, allow_blank: true
+    validates :hero_img_url, uniqueness: true, allow_blank: true
 
     enum :category, {
       penjualan: 0,

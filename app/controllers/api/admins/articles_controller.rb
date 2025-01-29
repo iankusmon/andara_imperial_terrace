@@ -53,16 +53,23 @@ module Api
       
       # PUT /admins/cms_articles/:id
       def update
-          cms_article = Cms::Article.find_by(id: params[:id])
-          update_params = update_request
+        cms_article_params = create_request
+        @cms_article = Cms::Article.find(params[:id])
 
-          # Check whether cms_article exist
-          if cms_article.nil?
-          render json: { error: "Cms::Article not found" }, status: :not_found
-          else
-          cms_article.update!(update_params)
-          render json: cms_article, status: :ok
-          end
+        # Set image_type berdasarkan title (maks 15 karakter)
+        image_type = params[:cms_article][:title][0..15]
+    
+        # Hapus hero image lama, attach image baru, dan simpan URL
+        attach_hero_image(@cms_article, params[:cms_article][:hero_image], image_type)
+    
+        # Hapus section image lama, attach image baru, dan simpan URL
+        attach_section_images(@cms_article, params[:cms_article][:sections_attributes], image_type)
+    
+        if @cms_article.update(cms_article_params)
+          render json: @cms_article
+        else
+          render json: { errors: @cms_article.errors.full_messages }, status: :unprocessable_entity
+        end
       end
 
       private
@@ -139,7 +146,7 @@ module Api
         article.hero_image.attach(io: hero_image, filename: "#{image_type}_hero_image.jpg", content_type: hero_image.content_type)
 
         # Simpan URL hero image ke dalam hero_image_url
-        article.hero_image_url = url_for(article.hero_image) if article.hero_image.attached?
+        article.hero_img_url = url_for(article.hero_image) if article.hero_image.attached?
       end
 
       # Method untuk attach section images dan simpan URL
