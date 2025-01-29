@@ -88,12 +88,17 @@ module Api
             :category,
             :published_at,
             :is_deleted,
-            sections: [[
+            sections_attributes: [[
+              :id,
               :title,
-              :image,
               :description
             ]],
-            meta_data: [:title, :keyword, :description]
+            meta_data_attributes: [
+              :id,
+              :title,
+              :keyword,
+              :description
+            ]
           )
       end
 
@@ -109,12 +114,17 @@ module Api
             :category,
             :published_at,
             :is_deleted,
-            sections: [[
+            sections_attributes: [[
+              :id,
               :title,
-              :image,
               :description
             ]],
-            meta_data: [:title, :keyword, :description]
+            meta_data_attributes: [
+              :id,
+              :title,
+              :keyword,
+              :description
+            ]
           )
       end
 
