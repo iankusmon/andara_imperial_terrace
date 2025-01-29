@@ -1,11 +1,15 @@
 module Cms
   class Article < ApplicationRecord
+    has_one_attached :hero_image
 
     has_many :sections, class_name: 'Cms::Article::Section', foreign_key: 'cms_article_id', inverse_of: :cms_article
     has_one :meta_data, class_name: 'Cms::Article::MetaData', foreign_key: 'cms_article_id', inverse_of: :cms_article
 
-    accepts_nested_attributes_for :sections
+    accepts_nested_attributes_for :sections, allow_destroy: true
     accepts_nested_attributes_for :meta_data
+
+    validates :title, presence: true, uniqueness: { case_sensitive: false }
+    validates :hero_image_url, uniqueness: true, allow_blank: true
 
     enum :category, {
       penjualan: 0,

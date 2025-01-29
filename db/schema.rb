@@ -72,10 +72,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.string "down_payment_receipt_url"
     t.integer "payment_type"
     t.integer "payment_type_status"
+    t.binary "upload_ajb_doc"
     t.integer "ajb_upload_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.binary "upload_ajb_doc"
   end
 
   create_table "booking_fees", force: :cascade do |t|
@@ -96,7 +96,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.string "scan_sk_pekerjaan_url"
     t.string "scan_fc_legal_usaha_url"
     t.string "scan_laporan_keuangan_url"
-    t.string "scan_last_3_months_rekening_koran_usaha_url"
+    t.string "scan_last_6_months_rekening_koran_usaha_url"
     t.integer "status"
     t.string "payment_receipt_url"
     t.datetime "created_at", null: false
@@ -192,12 +192,12 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.string "password_digest"
     t.string "photo_profile_url"
     t.integer "customer_address_id"
-    t.integer "nik"
-    t.integer "roles"
-    t.boolean "is_deleted", default: false
     t.string "password_confirmation"
     t.datetime "birthday"
     t.integer "gender"
+    t.integer "nik"
+    t.integer "roles"
+    t.boolean "is_deleted", default: false
   end
 
   create_table "destinations", force: :cascade do |t|
@@ -363,7 +363,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "floor_type"
-    t.integer "villa_type"
     t.integer "eiffel_room_type"
     t.integer "venice_room_type"
     t.integer "villa_theme"

@@ -31,14 +31,24 @@ module Api
       # POST /admins/cms_articles
       def create
           cms_article_params = create_request
+          @cms_article = CmsArticle.new(cms_article_params)
 
-          # Check whether cms_article already exist, by checking unique cms_article number
-          if Cms::Article.find_by(title: cms_article_params[:title])
-          render json: { error: "This Cms::Article already exists" }, status: :bad_request
+          # Set image_type berdasarkan title (maks 15 karakter)
+          image_type = params[:cms_article][:title][0..15]
+
+          # Attach hero image jika tersedia dan simpan URL
+          attach_hero_image(@cms_article, params[:cms_article][:hero_image], image_type)
+
+          # Attach section images jika tersedia dan simpan URL
+          attach_section_images(@cms_article, params[:cms_article][:sections_attributes], image_type)
+
+          if @cms_article.save
+            render json: @cms_article, status: :created
           else
-          cms_article = Cms::Article.create!(cms_article_params)
-          render json: cms_article, status: :ok
+            render json: { errors: @cms_article.errors.full_messages }, status: :unprocessable_entity
           end
+
+          # ::Cms::Notifiers::BlogPostsSendBatchJob.perform_async({ blog_post_id: blog_post.id }.stringify_keys)
       end
       
       # PUT /admins/cms_articles/:id
@@ -72,12 +82,18 @@ module Api
             :summary,
             :introduction,
             :closing,
-            :hero_img_url,
+            :hero_image,
             :url,
             :active_status,
             :category,
             :published_at,
-            :is_deleted
+            :is_deleted,
+            sections: [[
+              :title,
+              :image,
+              :description
+            ]],
+            meta_data: [:title, :keyword, :description]
           )
       end
 
@@ -87,15 +103,55 @@ module Api
             :summary,
             :introduction,
             :closing,
-            :hero_img_url,
+            :hero_image,
             :url,
             :active_status,
             :category,
             :published_at,
-            :is_deleted
+            :is_deleted,
+            sections: [[
+              :title,
+              :image,
+              :description
+            ]],
+            meta_data: [:title, :keyword, :description]
           )
       end
-            
+
+      # Method untuk attach hero image dan simpan URL
+      def attach_hero_image(article, hero_image, image_type)
+        return unless hero_image.present?
+
+        # Hapus hero image lama jika ada
+        article.hero_image.purge if article.hero_image.attached?
+
+        # Attach hero image baru
+        article.hero_image.attach(io: hero_image, filename: "#{image_type}_hero_image.jpg", content_type: hero_image.content_type)
+
+        # Simpan URL hero image ke dalam hero_image_url
+        article.hero_image_url = url_for(article.hero_image) if article.hero_image.attached?
+      end
+
+      # Method untuk attach section images dan simpan URL
+      def attach_section_images(article, sections, image_type)
+        return unless sections.present?
+
+        sections.each do |section_params|
+          next unless section_params[:image].present?
+
+          section = article.sections.find_by(id: section_params[:id])
+
+          # Jika section ada, hapus image lama dan attach image baru
+          if section
+            section.image.purge if section.image.attached?
+            section.image.attach(io: section_params[:image], filename: "#{image_type}_section_#{section.id}.jpg", content_type: section_params[:image].content_type)
+
+            # Simpan URL section image ke dalam section_image_url
+            section.update(image_url: url_for(section.image)) if section.image.attached?
+          end
+        end
+      end
+              
     end
   end
 end
