@@ -60,6 +60,26 @@ Rails.application.routes.draw do
   post "api/admins/kprs" => "api/admins/kprs#create"
   patch "api/admins/kprs/:id" => "api/admins/kprs#update"
 
+  # CMS Homepage Section
+
+  namespace :api do
+    namespace :admins do
+      namespace :cms do
+        namespace :homepages do
+          namespace :sections do
+            resources :main_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :landmark_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :mice_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :accommodation_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :wisata_modern_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :dayclub_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :agent_affiliate_banners, only: [:index, :show, :create, :update, :destroy]
+          end
+        end
+      end
+    end
+  end
+
   #CMS Article Feature
 
   get "api/admins/articles" => "api/admins/articles#index"

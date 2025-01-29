@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_29_231252) do
+  create_table "accommodation_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -53,6 +62,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.string "photo_profil_url"
     t.string "password_confirmation"
     t.integer "active_status", default: 1
+  end
+
+  create_table "agent_affiliate_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ajb_documents", force: :cascade do |t|
@@ -200,6 +218,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.boolean "is_deleted", default: false
   end
 
+  create_table "day_club_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "destinations", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -263,6 +290,33 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.date "due_date"
     t.text "note"
     t.integer "kpr_payment_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "landmark_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "main_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "mice_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -374,6 +428,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_12_183752) do
     t.datetime "time_ends"
     t.boolean "is_share"
     t.integer "share_social_media_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "wisata_modern_banners", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "image_url"
+    t.string "link_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
