@@ -11,6 +11,6 @@ class CreateCmsHomepageSectionDayClubBanner < ActiveRecord::Migration[8.0]
   end
 
   def down
-    drop_table day_club_banners
+    drop_table :day_club_banners
   end
 end

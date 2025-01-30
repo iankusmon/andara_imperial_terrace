@@ -1,5 +1,5 @@
 class CreateCmsHomepageSectionWisataModernBanner < ActiveRecord::Migration[8.0]
-  def uo
+  def up
     create_table :wisate_modern_banners do |t|
       t.string :title
       t.text :description
