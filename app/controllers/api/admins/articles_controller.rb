@@ -5,7 +5,7 @@ module Api
       # GET /admins/cms_articles
       def index
           filter_params = index_request
-          cms_articles = Cms::Article.all
+          cms_articles = ::Cms::Article.all
           cms_articles = cms_articles.where('title LIKE ?', "%#{filter_params[:title]}%") if filter_params[:title].present?
           cms_articles = cms_articles.where('url LIKE ?', "%#{filter_params[:url]}%") if filter_params[:url].present?
           cms_articles = cms_articles.where(active_status: filter_params[:active_status]) if filter_params[:active_status].present?
@@ -19,7 +19,7 @@ module Api
       
       # GET /admins/cms_articles/:id
       def show
-          cms_article = Cms::Article.find_by(id: params[:id])
+          cms_article = ::Cms::Article.find_by(id: params[:id])
 
           if cms_article.nil?
           render json: { error: "Article not found" }, status: :not_found
@@ -31,7 +31,7 @@ module Api
       # POST /admins/cms_articles
       def create
           cms_article_params = create_request
-          @cms_article = CmsArticle.new(cms_article_params)
+          @cms_article = ::Cms::Article.new(cms_article_params)
 
           # Set image_type berdasarkan title (maks 15 karakter)
           image_type = params[:cms_article][:title][0..15]
@@ -54,7 +54,7 @@ module Api
       # PUT /admins/cms_articles/:id
       def update
         cms_article_params = create_request
-        @cms_article = Cms::Article.find(params[:id])
+        @cms_article = ::Cms::Article.find(params[:id])
 
         # Set image_type berdasarkan title (maks 15 karakter)
         image_type = params[:cms_article][:title][0..15]

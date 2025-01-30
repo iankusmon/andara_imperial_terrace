@@ -60,6 +60,14 @@ Rails.application.routes.draw do
   post "api/admins/kprs" => "api/admins/kprs#create"
   patch "api/admins/kprs/:id" => "api/admins/kprs#update"
 
+  #CMS Article Feature
+
+  get "api/admins/articles" => "api/admins/articles#index"
+  get "api/admins/articles/:id" => "api/admins/articles#show"
+  post "api/admins/articles" => "api/admins/articles#create"
+  patch "api/admins/articles/:id" => "api/admins/articles#update" 
+
+
   # CMS Homepage Section
 
   namespace :api do
@@ -80,13 +88,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-  #CMS Article Feature
-
-  get "api/admins/articles" => "api/admins/articles#index"
-  get "api/admins/articles/:id" => "api/admins/articles#show"
-  post "api/admins/articles" => "api/admins/articles#create"
-  patch "api/admins/articles/:id" => "api/admins/articles#update" 
 
   #Villa Unit Kavling
   get "api/admins/villa_unit_kavlings" => "api/admins/villa_unit_kavlings#index"

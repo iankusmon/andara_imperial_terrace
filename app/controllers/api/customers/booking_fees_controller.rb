@@ -37,7 +37,7 @@ module Api
               :scan_sk_pekerjaan_url,
               :scan_fc_legal_usaha_url,
               :scan_laporan_keuangan_url,
-              :scan_last_3_months_rekening_koran_usaha_url
+              :scan_last_6_months_rekening_koran_usaha_url
         )
     end
           
