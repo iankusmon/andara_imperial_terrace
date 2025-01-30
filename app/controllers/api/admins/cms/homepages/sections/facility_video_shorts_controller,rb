@@ -3,19 +3,19 @@ module Api
     module Cms
       module Homepages
         module Sections
-          class DayClubBannersController < ApplicationController
+          class FacilityVideoShortsController < ApplicationController
             def index
-              banners = DayClubBanner.all
+              banners = FacilityVideoShort.all
               render json: banners
             end
 
             def show
-              banner = DayClubBanner.find(params[:id])
+              banner = FacilityVideoShort.find(params[:id])
               render json: banner
             end
 
             def create
-              banner = DayClubBanner.new(banner_params)
+              banner = FacilityVideoShort.new(video_short_params)
               if banner.save
                 render json: banner, status: :created
               else
@@ -24,8 +24,8 @@ module Api
             end
 
             def update
-              banner = DayClubBanner.find(params[:id])
-              if banner.update(banner_params)
+              banner = FacilityVideoShort.find(params[:id])
+              if banner.update(video_short_params)
                 render json: banner
               else
                 render json: { errors: banner.errors.full_messages }, status: :unprocessable_entity
@@ -33,15 +33,15 @@ module Api
             end
 
             def destroy
-              banner = DayClubBanner.find(params[:id])
+              banner = FacilityVideoShort.find(params[:id])
               banner.destroy
               render json: { message: 'Banner deleted successfully' }, status: :ok
             end
 
             private
 
-            def banner_params
-              params.require(:day_club_banner).permit(:title, :description, :image_url, :link_url)
+            def video_short_params
+              params.require(:facility_video_short).permit(:title, :description, :video_url, :link_url)
             end
           end
         end

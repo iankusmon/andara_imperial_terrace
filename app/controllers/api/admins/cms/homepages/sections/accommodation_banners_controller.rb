@@ -41,7 +41,7 @@ module Api
             private
 
             def banner_params
-              params.require(:landmark_banner).permit(:title, :description, :image_url, :link_url)
+              params.require(:accommodation_banner).permit(:title, :description, :image_url, :link_url)
             end
           end
         end

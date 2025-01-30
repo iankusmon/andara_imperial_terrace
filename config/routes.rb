@@ -74,6 +74,7 @@ Rails.application.routes.draw do
             resources :wisata_modern_banners, only: [:index, :show, :create, :update, :destroy]
             resources :dayclub_banners, only: [:index, :show, :create, :update, :destroy]
             resources :agent_affiliate_banners, only: [:index, :show, :create, :update, :destroy]
+            resources :facility_video_shorts, only: [:index, :show, :create, :update, :destroy]
           end
         end
       end

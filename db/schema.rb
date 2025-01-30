@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_29_231252) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_30_001011) do
   create_table "accommodation_banners", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -249,6 +249,15 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_29_231252) do
     t.integer "status"
     t.string "payment_receipt_url"
     t.text "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "facility_video_shorts", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "video_url"
+    t.string "link_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
