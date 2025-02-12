@@ -1,6 +1,6 @@
 module Api
   module Customers
-  class nupssController < ApplicationController
+  class NupsController < ApplicationController
     # Private Endpoint
     
     # POST /nups
