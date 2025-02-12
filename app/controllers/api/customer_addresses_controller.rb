@@ -54,8 +54,8 @@ module Api
             :street_address, 
             :kode_pos, 
             :address_note, 
-            :latitude => precision: 10, scale: 6, 
-            :longitude => precision: 10, scale: 6
+            :latitude,
+            :longitude
         )
     end
 
@@ -70,8 +70,8 @@ module Api
             :street_address, 
             :kode_pos, 
             :address_note, 
-            :latitude => precision: 10, scale: 6, 
-            :longitude => precision: 10, scale: 6
+            :latitude,
+            :longitude
         )
     end
   end
