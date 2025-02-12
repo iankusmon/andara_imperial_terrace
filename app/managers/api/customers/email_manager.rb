@@ -1,6 +1,5 @@
 module Api
   module Customers
-    module Signups
       # Creates a Customer
       # Sends confirmation mailer for Signing Up
       class EmailManager
@@ -40,6 +39,5 @@ module Api
         end
 
       end
-    end
   end
 end
