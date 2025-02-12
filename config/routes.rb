@@ -23,6 +23,23 @@ Rails.application.routes.draw do
   put 'api/packages/:id', to: 'api/packages#update'
 
   ## Admins
+  
+  # Agent Affiliate
+
+  get "api/agent_affiliates" => "api/agent_affiliates#index"
+  get "api/agent_affiliates/:id" => "api/agent_affiliates#show"
+  post "api/agent_affiliates" => "api/agent_affiliates#sign_up"
+  patch "api/agent_affiliates/:id" => "api/agent_affiliates#update"
+  
+  get "api/agent_affiliates/:id/generate_referral_link" => "api/agent_affiliates#generate_referral_link"
+  get "api/agent_affiliates/:id/commissions" => "api/agent_affiliates#commissions"
+  get "api/agent_affiliates/:id/rewards" => "api/agent_affiliates#rewards"
+  get "api/agent_affiliates/:id/revenues" => "api/agent_affiliates#revenues"
+
+  resources :transactions
+  resources :agent_affiliate_commissions
+  resources :agent_affiliate_rewards
+  resources :agent_affiliate_revenues
 
   # NUP Feature
 

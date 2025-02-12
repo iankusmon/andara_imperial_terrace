@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_30_001011) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_12_214033) do
   create_table "accommodation_banners", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -71,6 +71,79 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_001011) do
     t.string "link_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "agent_affiliate_commissions", force: :cascade do |t|
+    t.integer "agent_affiliate_id", null: false
+    t.integer "property_unit_id", null: false
+    t.decimal "unit_price", precision: 15, scale: 2, null: false
+    t.decimal "commission_percentage", precision: 5, scale: 2, default: "2.0"
+    t.decimal "commission_amount", precision: 15, scale: 2, null: false
+    t.boolean "dp_30_paid", default: false
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_affiliate_id"], name: "index_agent_affiliate_commissions_on_agent_affiliate_id"
+    t.index ["property_unit_id"], name: "index_agent_affiliate_commissions_on_property_unit_id"
+  end
+
+  create_table "agent_affiliate_revenues", force: :cascade do |t|
+    t.integer "agent_affiliate_id", null: false
+    t.decimal "total_commissions", precision: 15, scale: 2, default: "0.0"
+    t.decimal "total_rewards", precision: 15, scale: 2, default: "0.0"
+    t.decimal "net_revenue", precision: 15, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["agent_affiliate_id"], name: "index_agent_affiliate_revenues_on_agent_affiliate_id"
+  end
+
+  create_table "agent_affiliate_rewards", force: :cascade do |t|
+    t.integer "agent_affiliate_id", null: false
+    t.string "reward_type", null: false
+    t.decimal "reward_amount", precision: 15, scale: 2, null: false
+    t.integer "sales_count", default: 0
+    t.boolean "dp_30_paid", default: false
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "pending"
+    t.index ["agent_affiliate_id"], name: "index_agent_affiliate_rewards_on_agent_affiliate_id"
+  end
+
+  create_table "agent_affiliates", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.string "photo_profile_url"
+    t.string "mobile", null: false
+    t.string "referral_code", null: false
+    t.datetime "last_login_at"
+    t.string "full_name"
+    t.string "nik", null: false
+    t.string "occupation"
+    t.integer "age"
+    t.string "gender"
+    t.string "married_status"
+    t.string "education"
+    t.string "salary_range"
+    t.text "address"
+    t.string "emergency_email"
+    t.string "emergency_mobile_number"
+    t.text "emergency_address"
+    t.bigint "affiliated_customer_id"
+    t.bigint "commission_id"
+    t.bigint "reward_id"
+    t.bigint "revenue_id"
+    t.decimal "signup_reward", precision: 15, scale: 2, default: "500000.0"
+    t.boolean "reward_eligible", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "password"
+    t.string "password_confirmation"
+    t.index ["email"], name: "index_agent_affiliates_on_email", unique: true
+    t.index ["mobile"], name: "index_agent_affiliates_on_mobile", unique: true
+    t.index ["nik"], name: "index_agent_affiliates_on_nik", unique: true
+    t.index ["referral_code"], name: "index_agent_affiliates_on_referral_code", unique: true
   end
 
   create_table "ajb_documents", force: :cascade do |t|
@@ -452,6 +525,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_30_001011) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "agent_affiliate_commissions", "agent_affiliates"
+  add_foreign_key "agent_affiliate_commissions", "property_units"
+  add_foreign_key "agent_affiliate_revenues", "agent_affiliates"
+  add_foreign_key "agent_affiliate_rewards", "agent_affiliates"
   add_foreign_key "cms_article_meta_data", "cms_articles"
   add_foreign_key "cms_article_sections", "cms_articles"
 end

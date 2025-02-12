@@ -10,6 +10,7 @@ gem "puma", ">= 5.0"
 # gem "jbuilder"
 
 gem 'valid_email2'
+gem 'dotenv-rails'
 
 gem "byebug"
 # Middleware to allow Cross Origin Resource Sharing
