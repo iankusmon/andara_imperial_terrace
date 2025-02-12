@@ -1,4 +1,4 @@
-class VillaUnitKavling < ActiveModel::Serializer
+class VillaUnitsKavlingSerializer < ActiveModel::Serializer
   attributes :id,
              :kavling_id,
              :nup_id,
