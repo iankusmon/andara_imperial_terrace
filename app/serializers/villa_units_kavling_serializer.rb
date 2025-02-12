@@ -13,5 +13,5 @@ class VillaUnitKavling < ActiveModel::Serializer
              :street_address,
              :price,
              :surface_area,
-             :building_area,
+             :building_area
 end
