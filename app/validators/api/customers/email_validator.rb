@@ -1,6 +1,5 @@
 module Api
   module Customers
-    module Signups
       # Validates params when signing up via email
       # - non social login
       class EmailValidator
@@ -107,5 +106,4 @@ module Api
 
       end
     end
-  end
 end
