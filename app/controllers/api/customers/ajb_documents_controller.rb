@@ -21,7 +21,7 @@ module Api
         params.require(:ajb).permit(
               :ajb_number,
               :booking_fee_number,
-              .down_payment_number,
+              :down_payment_number,
               :order_number,
               :payment_type,
               :payment_method,
