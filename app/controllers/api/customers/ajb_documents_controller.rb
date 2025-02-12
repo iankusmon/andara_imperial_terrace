@@ -1,6 +1,6 @@
-# module Api
-#   module Customers
-#     class AjbDocumentsController < ApplicationController
+module Api
+  module Customers
+    class AjbDocumentsController < ApplicationController
 #       # Private Endpoint
 
 #       # POST /ajbs
@@ -36,6 +36,6 @@
 #         )
 #       end
 
-#     end
-#   end
-# end
+    end
+  end
+end
