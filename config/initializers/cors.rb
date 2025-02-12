@@ -29,7 +29,9 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
               '127.0.0.1:19000',
               'andaraimperialterrace.click',
               'admin.andaraimperialterrace.click',
-              'localhost:3000'
+              'localhost:3000',
+              'www.andaraimperialterrace.co.id',
+              'admin.andaraimperialterrace.co.id'
     end
 
     resource '*', headers:     :any,
