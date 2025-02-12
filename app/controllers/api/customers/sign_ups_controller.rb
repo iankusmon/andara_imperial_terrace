@@ -2,7 +2,7 @@ module Api
   module Customers
     # api/v2/customers/signups/...
     # Public Endpoint
-    class SignupsController < BaseController
+    class SignUpsController < BaseController
 
       def email
         # Raise error is customer is already logged in
