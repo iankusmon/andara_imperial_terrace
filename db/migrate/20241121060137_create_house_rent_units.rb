@@ -1,6 +1,6 @@
 class CreateHouseRentUnits < ActiveRecord::Migration[8.0]
   def change
-    create_table :house_rent_units do |t|
+    create_table :house_rent_units, if_not_exists: true do |t|
       t.string :nup
       t.integer :payment_status
       t.integer :drop_point_status

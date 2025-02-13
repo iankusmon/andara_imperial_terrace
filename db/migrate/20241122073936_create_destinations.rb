@@ -1,6 +1,6 @@
 class CreateDestinations < ActiveRecord::Migration[8.0]
   def change
-    create_table :destinations do |t|
+    create_table :destinations, if_not_exists: true do |t|
       t.string :name
       t.string :description
       t.string :picture_url

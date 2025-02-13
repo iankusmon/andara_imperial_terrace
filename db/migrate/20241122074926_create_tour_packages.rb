@@ -1,6 +1,6 @@
 class CreateTourPackages < ActiveRecord::Migration[8.0]
   def change
-    create_table :tour_packages do |t|
+    create_table :tour_packages, if_not_exists: true do |t|
       t.string :name
       t.integer :price
       t.integer :payment_status
