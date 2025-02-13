@@ -18,23 +18,23 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
               'www.andaraimperialterrace.co.id'
 
     else
-      # origins 'localhost:3001',
-      #         'localhost:3002',
-      #         'localhost:3003',
-      #         'localhost:3004',
-      #         '127.0.0.1:3004',
-      #         '10.0.2.2:3004',
-      #         'localhost:3005',
-      #         'localhost:3333',
-      #         'localhost:30099',
-      #         '127.0.0.1:19000',
-      #         'andaraimperialterrace.click',
-      #         'admin.andaraimperialterrace.click',
-      #         '127.0.0.1:3000'
-      #         'localhost:3000',
-      #         'www.andaraimperialterrace.co.id',
-      #         'admin.andaraimperialterrace.co.id'
-      origins '*'
+      origins 'localhost:3001',
+              'localhost:3002',
+              'localhost:3003',
+              'localhost:3004',
+              '127.0.0.1:3004',
+              '10.0.2.2:3004',
+              'localhost:3005',
+              'localhost:3333',
+              'localhost:30099',
+              '127.0.0.1:19000',
+              'andaraimperialterrace.click',
+              'admin.andaraimperialterrace.click',
+              '127.0.0.1:3000',
+              'localhost:3000',
+              'www.andaraimperialterrace.co.id',
+              'api.andaraimperialterrace.co.id'
+              'admin.andaraimperialterrace.co.id'
     end
 
     resource '*', headers:     :any,
