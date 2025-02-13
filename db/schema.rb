@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_12_214033) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
   create_table "accommodation_banners", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -113,13 +113,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_214033) do
   create_table "agent_affiliates", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.string "password_digest", null: false
+    t.string "password_digest"
     t.string "photo_profile_url"
     t.string "mobile", null: false
-    t.string "referral_code", null: false
+    t.string "referral_code"
     t.datetime "last_login_at"
     t.string "full_name"
-    t.string "nik", null: false
+    t.string "nik"
     t.string "occupation"
     t.integer "age"
     t.string "gender"
