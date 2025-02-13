@@ -526,7 +526,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_affiliate_commissions", "agent_affiliates"
-  add_foreign_key "agent_affiliate_commissions", "property_units"
+  # add_foreign_key "agent_affiliate_commissions", "property_units"
   add_foreign_key "agent_affiliate_revenues", "agent_affiliates"
   add_foreign_key "agent_affiliate_rewards", "agent_affiliates"
   add_foreign_key "cms_article_meta_data", "cms_articles"
