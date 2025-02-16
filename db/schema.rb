@@ -84,7 +84,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_affiliate_id"], name: "index_agent_affiliate_commissions_on_agent_affiliate_id"
-    t.index ["property_unit_id"], name: "index_agent_affiliate_commissions_on_property_unit_id"
+    # t.index ["property_unit_id"], name: "index_agent_affiliate_commissions_on_property_unit_id"
   end
 
   create_table "agent_affiliate_revenues", force: :cascade do |t|

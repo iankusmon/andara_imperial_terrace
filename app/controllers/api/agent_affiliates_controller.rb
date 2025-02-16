@@ -8,6 +8,8 @@ module Api
       random_number = SecureRandom.random_number(900_000_000) + 100_000_000
       # puts random_number
       agent_affiliate_params[:nik] = random_number
+
+      byebug
       
       agent = AgentAffiliate.new(agent_affiliate_params)
     
