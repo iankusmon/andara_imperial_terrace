@@ -9,6 +9,8 @@ gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
+gem 'pg'
+
 gem 'valid_email2'
 gem 'dotenv-rails'
 
