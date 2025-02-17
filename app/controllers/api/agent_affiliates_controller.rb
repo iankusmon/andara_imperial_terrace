@@ -3,12 +3,6 @@ module Api
     before_action :set_agent, only: [:generate_referral_link, :commissions, :rewards, :revenues]
 
     def sign_up
-      require 'securerandom'
-
-      random_number = SecureRandom.random_number(900_000_000) + 100_000_000
-      # puts random_number
-      agent_affiliate_params[:nik] = random_number
-      
       agent = AgentAffiliate.new(agent_affiliate_params)
     
       if params[:referral_code].present?
