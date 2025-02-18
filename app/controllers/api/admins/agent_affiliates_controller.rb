@@ -11,7 +11,7 @@ module Api
 
       # GET /api/admin/agent_affiliates/:id
       def show
-        render json: { agent: @agent }, status: :ok
+        render json: @agent, serializer: AgentAffiliateSerializer, status: :ok
       end
 
       # GET /api/admin/agent_affiliates/:id/commissions
