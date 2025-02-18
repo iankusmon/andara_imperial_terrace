@@ -30,7 +30,8 @@ module Api
         # Kirim WhatsApp
         send_whatsapp_notification(agent)
         
-        render json: { message: 'Signup berhasil!' }, status: :created
+        token = JsonWebToken.encode({ agent_id: agent.id })
+        render json: { token: token, agent: agent.slice(:id, :name, :email, :photo_profile_url, :mobile, :referral_code) }, status: :ok
       else
         render json: { errors: agent.errors.full_messages }, status: :unprocessable_entity
       end
