@@ -36,10 +36,25 @@ Rails.application.routes.draw do
   get "api/agent_affiliates/:id/rewards" => "api/agent_affiliates#rewards"
   get "api/agent_affiliates/:id/revenues" => "api/agent_affiliates#revenues"
 
-  resources :transactions
-  resources :agent_affiliate_commissions
-  resources :agent_affiliate_rewards
-  resources :agent_affiliate_revenues
+  # Admins/ Agent Affiliate
+
+  # namespace :api do
+  #   namespace :admin do
+  #     resources :agent_affiliates, only: [:index, :show] do
+  #       member do
+  #         get :commissions
+  #         get :rewards
+  #         get :withdraws
+  #       end
+  #     end
+  #   end
+  # end
+
+  get "api/admins/agent_affiliates" => "api/admins/agent_affiliates#index"
+  get "api/admins/agent_affiliates/:id" => "api/admins/agent_affiliates#show"
+  get "api/admins/agent_affiliates/:id/commissions" => "api/admins/agent_affiliates#commissions"
+  get "api/admins/agent_affiliates/:id/rewards" => "api/admins/agent_affiliates#rewards"
+  get "api/admins/agent_affiliates/:id/withdraws" => "api/admins/agent_affiliates#withdraws"
 
   # NUP Feature
 
