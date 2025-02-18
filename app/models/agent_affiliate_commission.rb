@@ -10,11 +10,11 @@ class AgentAffiliateCommission < ApplicationRecord
   # }
   
 
-  before_create :set_default_status
+  # before_create :set_default_status
 
   private
 
-  def set_default_status
-    self.status ||= "pending"
-  end
+  # def set_default_status
+  #   self.status ||= "pending"
+  # end
 end
