@@ -123,6 +123,8 @@ GEM
     json (2.8.2)
       base64
     jsonapi-renderer (0.2.2)
+    jwt (2.10.1)
+      base64
     kamal (2.3.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -339,6 +341,7 @@ DEPENDENCIES
   byebug
   debug
   dotenv-rails
+  jwt
   kamal
   puma (>= 5.0)
   rack-cors

@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  belongs_to :agent_affiliate, optional: true
+  
     # Enumerations
     enum :gender, {
       male: 0,

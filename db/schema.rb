@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_18_195532) do
   create_table "accommodation_banners", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -84,7 +84,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["agent_affiliate_id"], name: "index_agent_affiliate_commissions_on_agent_affiliate_id"
-    # t.index ["property_unit_id"], name: "index_agent_affiliate_commissions_on_property_unit_id"
+    t.index ["property_unit_id"], name: "index_agent_affiliate_commissions_on_property_unit_id"
   end
 
   create_table "agent_affiliate_revenues", force: :cascade do |t|
@@ -140,6 +140,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
     t.datetime "updated_at", null: false
     t.string "password"
     t.string "password_confirmation"
+    t.string "bank"
+    t.string "bank_branch"
+    t.string "account_number"
+    t.string "account_name"
     t.index ["email"], name: "index_agent_affiliates_on_email", unique: true
     t.index ["mobile"], name: "index_agent_affiliates_on_mobile", unique: true
     t.index ["nik"], name: "index_agent_affiliates_on_nik", unique: true
@@ -289,6 +293,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
     t.integer "nik"
     t.integer "roles"
     t.boolean "is_deleted", default: false
+    t.integer "agent_affiliate_id", null: false
+    t.string "referral_code"
+    t.index ["agent_affiliate_id"], name: "index_customers_on_agent_affiliate_id"
+    t.index ["referral_code"], name: "index_customers_on_referral_code"
   end
 
   create_table "day_club_banners", force: :cascade do |t|
@@ -526,9 +534,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_13_052011) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "agent_affiliate_commissions", "agent_affiliates"
-  # add_foreign_key "agent_affiliate_commissions", "property_units"
+  add_foreign_key "agent_affiliate_commissions", "property_units"
   add_foreign_key "agent_affiliate_revenues", "agent_affiliates"
   add_foreign_key "agent_affiliate_rewards", "agent_affiliates"
   add_foreign_key "cms_article_meta_data", "cms_articles"
   add_foreign_key "cms_article_sections", "cms_articles"
+  add_foreign_key "customers", "agent_affiliates"
 end

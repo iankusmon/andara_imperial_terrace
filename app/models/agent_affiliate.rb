@@ -1,5 +1,6 @@
 class AgentAffiliate < ApplicationRecord
   has_secure_password
+  has_many :registered_customers, class_name: "Customer", foreign_key: "agent_affiliate_id"
 
   has_many :customers
   has_many :transactions

@@ -27,14 +27,18 @@ Rails.application.routes.draw do
   # Agent Affiliate
 
   get "api/agent_affiliates" => "api/agent_affiliates#index"
-  get "api/agent_affiliates/:id" => "api/agent_affiliates#show"
+  get "api/agent_affiliates/:id" => "api/agent_affiliates#profile"
   post "api/agent_affiliates" => "api/agent_affiliates#sign_up"
   patch "api/agent_affiliates/:id" => "api/agent_affiliates#update"
+  post "/api/agent_affiliates/login", to: "api/agent_affiliates#login"
+
+  delete "/api/agent_affiliates/logout", to: "api/agent_affiliates#logout"
   
   get "api/agent_affiliates/:id/generate_referral_link" => "api/agent_affiliates#generate_referral_link"
   get "api/agent_affiliates/:id/commissions" => "api/agent_affiliates#commissions"
   get "api/agent_affiliates/:id/rewards" => "api/agent_affiliates#rewards"
   get "api/agent_affiliates/:id/revenues" => "api/agent_affiliates#revenues"
+  get "api/agent_affiliates/:id/registered_customers" => "api/agent_affiliates#registered_customers"
   post "api/agent_affiliates/:id/register_customer" => "api/agent_affiliates#register_customer"
 
   # Admins/ Agent Affiliate
