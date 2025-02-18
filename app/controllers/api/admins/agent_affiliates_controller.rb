@@ -1,5 +1,5 @@
 module Api
-  module Admin
+  module Admins
     class AgentAffiliatesController < ApplicationController
       before_action :set_agent, only: [:show, :commissions, :rewards, :withdraws, :register_customer, :upload_withdraw_proof]
 
