@@ -3,11 +3,11 @@ class AgentAffiliateCommission < ApplicationRecord
   # belongs_to :reward
 
   # enum status: { pending: "pending", approved: "approved", paid: "paid" }
-  enum :status, { 
-    pending: 0,
-    approved: 1,
-    paid: 2 
-  }
+  # enum :status, { 
+  #   pending: 0,
+  #   approved: 1,
+  #   paid: 2 
+  # }
   
 
   before_create :set_default_status
