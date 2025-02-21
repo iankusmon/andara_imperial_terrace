@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  has_secure_password
   belongs_to :agent_affiliate, optional: true
   
     # Enumerations

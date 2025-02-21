@@ -125,6 +125,17 @@ Rails.application.routes.draw do
 
   ## Customers
 
+  namespace :api do
+    resources :customers, only: [:create, :update] do
+      collection do
+        post :login
+      end
+      member do
+        post :buy_villa
+      end
+    end
+  end
+
   # NUP Feature
 
   post 'api/customers/nups' => "api/customers/nups#create"

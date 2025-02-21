@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_18_195532) do
+ActiveRecord::Schema[8.0].define(version: 2025_02_21_020901) do
   create_table "accommodation_banners", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -293,7 +293,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_18_195532) do
     t.integer "nik"
     t.integer "roles"
     t.boolean "is_deleted", default: false
-    t.integer "agent_affiliate_id", null: false
+    t.integer "agent_affiliate_id"
     t.string "referral_code"
     t.index ["agent_affiliate_id"], name: "index_customers_on_agent_affiliate_id"
     t.index ["referral_code"], name: "index_customers_on_referral_code"
