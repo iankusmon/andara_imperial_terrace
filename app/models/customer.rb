@@ -25,6 +25,8 @@ class Customer < ApplicationRecord
     has_many :packages
     has_many :kpr_documents
 
+    has_many :nups, dependent: :destroy
+
     def assign_agent_affiliate
       if self.referral_code.present?
         agent = AgentAffiliate.find_by(referral_code: self.referral_code)

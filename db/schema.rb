@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_02_21_020901) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_02_151524) do
   create_table "accommodation_banners", force: :cascade do |t|
     t.string "title"
     t.text "description"
@@ -427,6 +427,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_21_020901) do
     t.integer "status"
     t.string "payment_receipt_url"
     t.text "note"
+    t.string "income"
+    t.string "npwp"
+    t.string "phone"
+    t.string "email"
+    t.string "bank_name"
+    t.string "account_holder"
+    t.string "account_number"
+    t.string "villa_unit_desired"
+    t.integer "customer_id"
+    t.index ["customer_id"], name: "index_nups_on_customer_id"
   end
 
   create_table "ppjb_documents", force: :cascade do |t|
@@ -540,4 +550,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_21_020901) do
   add_foreign_key "cms_article_meta_data", "cms_articles"
   add_foreign_key "cms_article_sections", "cms_articles"
   add_foreign_key "customers", "agent_affiliates"
+  add_foreign_key "nups", "customers"
 end
