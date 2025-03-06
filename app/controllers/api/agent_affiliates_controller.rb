@@ -76,7 +76,7 @@ module Api
       # Misalnya, kita asumsikan agent affiliate sudah memiliki relasi dengan customer
       # Jika belum, Anda bisa mengambil data dari model Customer berdasarkan kondisi:
       # customers = Customer.where(agent_affiliate_id: @agent.id)
-      customers = @current_agent.registered_customers.select(:id, :name, :email, :mobile, :created_at)
+      customers = ::Customer.where(agent_affiliate_id: @current_agent.id).select(:id, :name, :email, :mobile, :created_at)
       render json: { registered_customers: customers }
     end
 
@@ -102,9 +102,13 @@ module Api
 
     # POST /api/admin/agent_affiliates/:id/register_customer
     def register_customer
-      customer = Customer.new(customer_params.merge(agent_affiliate: @current_agent))
+      # customer = Customer.new(customer_params.merge(agent_affiliate: @current_agent))
+      default_password = "1234"
+      customer = Customer.new(customer_params)
+      customer.update!(password: default_password, agent_affiliate_id: @current_agent.id)
       if customer.save
-        render json: { message: 'Customer registered successfully', customer: customer }, status: :created
+        # render json: { message: 'Customer registered successfully', customer: customer }, status: :created
+        render json: { customer: customer.slice(:id, :name, :email, :photo_profile_url, :mobile) }, status: :created
       else
         render json: { errors: customer.errors.full_messages }, status: :unprocessable_entity
       end
@@ -141,7 +145,8 @@ module Api
         :bank,
         :bank_branch,
         :account_number,
-        :account_name
+        :account_name,
+        :agent_affiliate_id
       )
     end
 
@@ -156,12 +161,47 @@ module Api
       WatiService.send_message(agent)
     end
 
+    # def customer_params
+    #   params.require(:customer).permit(:name, :email, :username, :mobile, :referral_code, :visit_id, 
+    #     :kpr_document_id, :villa_unit_id, :last_login_at, :villa_rent_id, :package_id, 
+    #     :is_buyer, :is_renter, :is_package, :is_package_buyer, :password, :password_digest, 
+    #     :photo_profile_url, :customer_address_id, :password_confirmation, :birthday, :gender, 
+    #     :nik, :roles, :is_deleted)
+    # end
+
     def customer_params
-      params.require(:customer).permit(:name, :email, :username, :mobile, :referral_code, :visit_id, 
-        :kpr_document_id, :villa_unit_id, :last_login_at, :villa_rent_id, :package_id, 
-        :is_buyer, :is_renter, :is_package, :is_package_buyer, :password, :password_digest, 
-        :photo_profile_url, :customer_address_id, :password_confirmation, :birthday, :gender, 
-        :nik, :roles, :is_deleted)
+      params.require(:customer).permit(
+        :name,
+        :username,
+        :email,
+        :mobile,
+        :referral_code,   # Parameter referral code dikirim oleh customer
+        :visit_id,
+        :kpr_document_id,
+        :villa_unit_id,
+        :is_buyer,
+        :is_renter,
+        :is_package_buyer,
+        :last_login_at,
+        :villa_rent_id,
+        :package_id,
+        :password,
+        :password_confirmation,
+        :photo_profil_url,
+        :fullName,
+        :nik,
+        :occupation,
+        :age,
+        :gender,
+        :married_status,
+        :education,
+        :salary_range,
+        :address,
+        :emergency_email,
+        :emergency_mobile_number,
+        :emergency_address,
+        # Field agent_affiliate_id tidak perlu diizinkan melalui form sign up
+      )
     end
 
     def authenticate_agent
