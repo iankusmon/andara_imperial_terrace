@@ -1,4 +1,5 @@
 require Rails.root.join("lib", "json_web_token").to_s
+include Rails.application.routes.url_helpers  # Tambahkan ini agar `url_for` bisa digunakan
 
 module Api
   class AgentAffiliatesController < ApplicationController
@@ -64,8 +65,15 @@ module Api
 
     # Update profile endpoint
     def update
+      if params[:agent_affiliate][:photo_profile].present?
+        @agent.photo_profile.attach(params[:agent_affiliate][:photo_profile])
+      end
+
+      @agent.reload
+
       if @agent.update(agent_affiliate_params)
-        render json: { agent: @agent, message: "Profile updated successfully" }, status: :ok
+        @agent.update!(photo_profile_url: get_photo_profile_url(@agent.photo_profile))
+        render json: { agent: @agent.as_json(methods: [:photo_profile_url]), message: "Profile updated successfully" }, status: :ok
       else
         render json: { errors: @agent.errors.full_messages }, status: :unprocessable_entity
       end
@@ -105,10 +113,23 @@ module Api
       # customer = Customer.new(customer_params.merge(agent_affiliate: @current_agent))
       default_password = "1234"
       customer = Customer.new(customer_params)
+
+      if params[:customer][:photo_profile].present?
+        customer.photo_profile.attach(params[:customer][:photo_profile])
+      end
+
       customer.update!(password: default_password, agent_affiliate_id: @current_agent.id)
+
+      # Reload untuk mendapatkan URL foto yang sudah tersimpan
+      customer.reload
+
       if customer.save
-        # render json: { message: 'Customer registered successfully', customer: customer }, status: :created
-        render json: { customer: customer.slice(:id, :name, :email, :photo_profile_url, :mobile) }, status: :created
+        customer.update!(photo_profile_url: get_photo_profile_url(customer.photo_profile))
+        render json: { 
+          customer: customer.slice(:id, :name, :email, :mobile).merge(
+            photo_profile_url: customer.photo_profile.attached? ? url_for(customer.photo_profile) : nil
+          ) 
+        }, status: :created
       else
         render json: { errors: customer.errors.full_messages }, status: :unprocessable_entity
       end
@@ -146,7 +167,8 @@ module Api
         :bank_branch,
         :account_number,
         :account_name,
-        :agent_affiliate_id
+        :agent_affiliate_id,
+        :photo_profile
       )
     end
 
@@ -188,6 +210,7 @@ module Api
         :password,
         :password_confirmation,
         :photo_profil_url,
+        :photo_profile,
         :fullName,
         :nik,
         :occupation,
@@ -214,6 +237,10 @@ module Api
       rescue ActiveRecord::RecordNotFound, JWT::DecodeError
         render json: { error: 'Unauthorized' }, status: :unauthorized
       end
+    end
+
+    def get_photo_profile_url(photo_profile)
+      Rails.application.routes.url_helpers.url_for(photo_profile) if photo_profile.attached?
     end
   
   end

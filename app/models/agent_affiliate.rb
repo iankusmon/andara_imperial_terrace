@@ -1,4 +1,5 @@
 class AgentAffiliate < ApplicationRecord
+  has_one_attached :photo_profile
   has_secure_password
   has_many :registered_customers, class_name: "Customer", foreign_key: "agent_affiliate_id"
 
